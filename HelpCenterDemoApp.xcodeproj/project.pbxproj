@@ -20,6 +20,9 @@
 		713257492CBAAB1000FB727B /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257482CBAAB1000FB727B /* UITableView+Extensions.swift */; };
 		7132574B2CBAAC9000FB727B /* HelpOptionsButtonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132574A2CBAAC9000FB727B /* HelpOptionsButtonListView.swift */; };
 		7132574D2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132574C2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift */; };
+		713257502CBAC0C600FB727B /* HelpCenterImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132574F2CBAC0C600FB727B /* HelpCenterImageCell.swift */; };
+		713257522CBAC32F00FB727B /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257512CBAC32F00FB727B /* UIImageView+Extensions.swift */; };
+		713257552CBAC34800FB727B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 713257542CBAC34800FB727B /* Kingfisher */; };
 		71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA482CB9D26600823B95 /* AppDelegate.swift */; };
 		71D6FA4B2CB9D26600823B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */; };
 		71D6FA4D2CB9D26600823B95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA4C2CB9D26600823B95 /* ViewController.swift */; };
@@ -62,6 +65,8 @@
 		713257482CBAAB1000FB727B /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		7132574A2CBAAC9000FB727B /* HelpOptionsButtonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpOptionsButtonListView.swift; sourceTree = "<group>"; };
 		7132574C2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterOptionsButtonContentCell.swift; sourceTree = "<group>"; };
+		7132574F2CBAC0C600FB727B /* HelpCenterImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterImageCell.swift; sourceTree = "<group>"; };
+		713257512CBAC32F00FB727B /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		71D6FA452CB9D26600823B95 /* HelpCenterDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpCenterDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D6FA482CB9D26600823B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				713257552CBAC34800FB727B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +172,7 @@
 		7111C8982CBA9660003C9C59 /* Cells  */ = {
 			isa = PBXGroup;
 			children = (
+				7132574E2CBAC0B800FB727B /* HelpCenterImageCell */,
 				7111C8A12CBAA110003C9C59 /* HelpCenterOptionsListCell */,
 			);
 			path = "Cells ";
@@ -189,8 +196,17 @@
 				713257442CBAA51000FB727B /* UIColor+Extensions .swift */,
 				713257462CBAA5D400FB727B /* UILabel+Extensions .swift */,
 				713257482CBAAB1000FB727B /* UITableView+Extensions.swift */,
+				713257512CBAC32F00FB727B /* UIImageView+Extensions.swift */,
 			);
 			path = "Extensions ";
+			sourceTree = "<group>";
+		};
+		7132574E2CBAC0B800FB727B /* HelpCenterImageCell */ = {
+			isa = PBXGroup;
+			children = (
+				7132574F2CBAC0C600FB727B /* HelpCenterImageCell.swift */,
+			);
+			path = HelpCenterImageCell;
 			sourceTree = "<group>";
 		};
 		71D6FA3C2CB9D26600823B95 = {
@@ -263,6 +279,7 @@
 			);
 			name = HelpCenterDemoApp;
 			packageProductDependencies = (
+				713257542CBAC34800FB727B /* Kingfisher */,
 			);
 			productName = HelpCenterDemoApp;
 			productReference = 71D6FA452CB9D26600823B95 /* HelpCenterDemoApp.app */;
@@ -338,6 +355,7 @@
 			mainGroup = 71D6FA3C2CB9D26600823B95;
 			packageReferences = (
 				7111C89E2CBA97A3003C9C59 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				713257532CBAC34800FB727B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 71D6FA462CB9D26600823B95 /* Products */;
 			projectDirPath = "";
@@ -388,11 +406,13 @@
 				71D6FA4D2CB9D26600823B95 /* ViewController.swift in Sources */,
 				7132574B2CBAAC9000FB727B /* HelpOptionsButtonListView.swift in Sources */,
 				713257472CBAA5D400FB727B /* UILabel+Extensions .swift in Sources */,
+				713257502CBAC0C600FB727B /* HelpCenterImageCell.swift in Sources */,
 				71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */,
 				7111C8A62CBAA1D6003C9C59 /* UIView+Extensions .swift in Sources */,
 				7111C8912CB9E405003C9C59 /* HelpCenterInteractor.swift in Sources */,
 				7111C8952CBA7352003C9C59 /* HelpCenterViewProtocol.swift in Sources */,
 				7111C8972CBA8D5B003C9C59 /* HelpCenterRouter.swift in Sources */,
+				713257522CBAC32F00FB727B /* UIImageView+Extensions.swift in Sources */,
 				71D6FA4B2CB9D26600823B95 /* SceneDelegate.swift in Sources */,
 				713257452CBAA51000FB727B /* UIColor+Extensions .swift in Sources */,
 				7111C8A02CBA97E2003C9C59 /* HelpCenterOptionsListCell.swift in Sources */,
@@ -756,7 +776,23 @@
 				minimumVersion = 0.57.0;
 			};
 		};
+		713257532CBAC34800FB727B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		713257542CBAC34800FB727B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 713257532CBAC34800FB727B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 71D6FA3D2CB9D26600823B95 /* Project object */;
 }

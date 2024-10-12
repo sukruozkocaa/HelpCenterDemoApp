@@ -21,6 +21,7 @@ final class HelpCenterViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(cell: HelpCenterOptionsListCell.self)
+        tableView.register(cell: HelpCenterImageCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -72,12 +73,13 @@ extension HelpCenterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(for: HelpCenterOptionsListCell.self, for: indexPath)
+        let cell = tableView.dequeueReusableCell(for: HelpCenterImageCell.self, for: indexPath)
+        cell.configure(imageURLString: "")
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 216.0
+        return 187.0
     }
 }
 
