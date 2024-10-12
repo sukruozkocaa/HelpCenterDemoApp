@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic-n11-badge.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

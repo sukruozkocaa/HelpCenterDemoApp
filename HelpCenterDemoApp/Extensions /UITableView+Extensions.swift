@@ -36,3 +36,40 @@ extension UITableView {
         return view
     }
 }
+
+extension UITableView {
+    func scrollToBottom(){
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let indexPath = IndexPath(
+                row: self.numberOfRows(inSection:  self.numberOfSections-1) - 1,
+                section: self.numberOfSections - 1)
+            if self.hasRowAtIndexPath(indexPath: indexPath) {
+                self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        }
+    }
+
+    func scrollToTop() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            let indexPath = IndexPath(row: .zero, section: .zero)
+            if hasRowAtIndexPath(indexPath: indexPath) {
+                self.scrollToRow(at: indexPath, at: .top, animated: false)
+           }
+        }
+    }
+
+    func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
+        return indexPath.section < self.numberOfSections && indexPath.row < self.numberOfRows(inSection: indexPath.section)
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.reloadData()
+        }
+    }
+}
