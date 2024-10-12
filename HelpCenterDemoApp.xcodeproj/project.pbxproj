@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7111C88D2CB9D7D6003C9C59 /* HelpCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C88C2CB9D7D6003C9C59 /* HelpCenterViewController.swift */; };
+		7111C8912CB9E405003C9C59 /* HelpCenterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C8902CB9E405003C9C59 /* HelpCenterInteractor.swift */; };
+		7111C8932CB9E4AF003C9C59 /* HelpCenterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C8922CB9E4AF003C9C59 /* HelpCenterPresenter.swift */; };
+		7111C8952CBA7352003C9C59 /* HelpCenterViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C8942CBA7352003C9C59 /* HelpCenterViewProtocol.swift */; };
+		7111C8972CBA8D5B003C9C59 /* HelpCenterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C8962CBA8D5B003C9C59 /* HelpCenterRouter.swift */; };
+		7111C8A02CBA97E2003C9C59 /* HelpCenterOptionsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C89F2CBA97E2003C9C59 /* HelpCenterOptionsListCell.swift */; };
+		7111C8A32CBAA14A003C9C59 /* HelpCenterOptionsListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C8A22CBAA14A003C9C59 /* HelpCenterOptionsListTitleView.swift */; };
+		7111C8A62CBAA1D6003C9C59 /* UIView+Extensions .swift in Sources */ = {isa = PBXBuildFile; fileRef = 7111C8A52CBAA1D6003C9C59 /* UIView+Extensions .swift */; };
+		713257452CBAA51000FB727B /* UIColor+Extensions .swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257442CBAA51000FB727B /* UIColor+Extensions .swift */; };
+		713257472CBAA5D400FB727B /* UILabel+Extensions .swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257462CBAA5D400FB727B /* UILabel+Extensions .swift */; };
+		713257492CBAAB1000FB727B /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257482CBAAB1000FB727B /* UITableView+Extensions.swift */; };
+		7132574B2CBAAC9000FB727B /* HelpOptionsButtonListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132574A2CBAAC9000FB727B /* HelpOptionsButtonListView.swift */; };
+		7132574D2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132574C2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift */; };
 		71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA482CB9D26600823B95 /* AppDelegate.swift */; };
 		71D6FA4B2CB9D26600823B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */; };
 		71D6FA4D2CB9D26600823B95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA4C2CB9D26600823B95 /* ViewController.swift */; };
@@ -36,6 +49,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7111C88C2CB9D7D6003C9C59 /* HelpCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterViewController.swift; sourceTree = "<group>"; };
+		7111C8902CB9E405003C9C59 /* HelpCenterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterInteractor.swift; sourceTree = "<group>"; };
+		7111C8922CB9E4AF003C9C59 /* HelpCenterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterPresenter.swift; sourceTree = "<group>"; };
+		7111C8942CBA7352003C9C59 /* HelpCenterViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterViewProtocol.swift; sourceTree = "<group>"; };
+		7111C8962CBA8D5B003C9C59 /* HelpCenterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterRouter.swift; sourceTree = "<group>"; };
+		7111C89F2CBA97E2003C9C59 /* HelpCenterOptionsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterOptionsListCell.swift; sourceTree = "<group>"; };
+		7111C8A22CBAA14A003C9C59 /* HelpCenterOptionsListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterOptionsListTitleView.swift; sourceTree = "<group>"; };
+		7111C8A52CBAA1D6003C9C59 /* UIView+Extensions .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions .swift"; sourceTree = "<group>"; };
+		713257442CBAA51000FB727B /* UIColor+Extensions .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions .swift"; sourceTree = "<group>"; };
+		713257462CBAA5D400FB727B /* UILabel+Extensions .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions .swift"; sourceTree = "<group>"; };
+		713257482CBAAB1000FB727B /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		7132574A2CBAAC9000FB727B /* HelpOptionsButtonListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpOptionsButtonListView.swift; sourceTree = "<group>"; };
+		7132574C2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterOptionsButtonContentCell.swift; sourceTree = "<group>"; };
 		71D6FA452CB9D26600823B95 /* HelpCenterDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpCenterDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D6FA482CB9D26600823B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +102,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7111C8852CB9D690003C9C59 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				7111C88B2CB9D6CA003C9C59 /* Main */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		7111C8862CB9D69E003C9C59 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		7111C8872CB9D6A3003C9C59 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8982CBA9660003C9C59 /* Cells  */,
+				7111C88C2CB9D7D6003C9C59 /* HelpCenterViewController.swift */,
+				7111C8942CBA7352003C9C59 /* HelpCenterViewProtocol.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7111C8882CB9D6A6003C9C59 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8962CBA8D5B003C9C59 /* HelpCenterRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7111C8892CB9D6AD003C9C59 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8922CB9E4AF003C9C59 /* HelpCenterPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7111C88A2CB9D6B6003C9C59 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8902CB9E405003C9C59 /* HelpCenterInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		7111C88B2CB9D6CA003C9C59 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8872CB9D6A3003C9C59 /* View */,
+				7111C88A2CB9D6B6003C9C59 /* Interactor */,
+				7111C8892CB9D6AD003C9C59 /* Presenter */,
+				7111C8862CB9D69E003C9C59 /* Entity */,
+				7111C8882CB9D6A6003C9C59 /* Router */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		7111C8982CBA9660003C9C59 /* Cells  */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8A12CBAA110003C9C59 /* HelpCenterOptionsListCell */,
+			);
+			path = "Cells ";
+			sourceTree = "<group>";
+		};
+		7111C8A12CBAA110003C9C59 /* HelpCenterOptionsListCell */ = {
+			isa = PBXGroup;
+			children = (
+				7111C89F2CBA97E2003C9C59 /* HelpCenterOptionsListCell.swift */,
+				7111C8A22CBAA14A003C9C59 /* HelpCenterOptionsListTitleView.swift */,
+				7132574A2CBAAC9000FB727B /* HelpOptionsButtonListView.swift */,
+				7132574C2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift */,
+			);
+			path = HelpCenterOptionsListCell;
+			sourceTree = "<group>";
+		};
+		7111C8A42CBAA1CC003C9C59 /* Extensions  */ = {
+			isa = PBXGroup;
+			children = (
+				7111C8A52CBAA1D6003C9C59 /* UIView+Extensions .swift */,
+				713257442CBAA51000FB727B /* UIColor+Extensions .swift */,
+				713257462CBAA5D400FB727B /* UILabel+Extensions .swift */,
+				713257482CBAAB1000FB727B /* UITableView+Extensions.swift */,
+			);
+			path = "Extensions ";
+			sourceTree = "<group>";
+		};
 		71D6FA3C2CB9D26600823B95 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +216,8 @@
 		71D6FA472CB9D26600823B95 /* HelpCenterDemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				7111C8A42CBAA1CC003C9C59 /* Extensions  */,
+				7111C8852CB9D690003C9C59 /* Module */,
 				71D6FA482CB9D26600823B95 /* AppDelegate.swift */,
 				71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */,
 				71D6FA4C2CB9D26600823B95 /* ViewController.swift */,
@@ -143,6 +262,8 @@
 			dependencies = (
 			);
 			name = HelpCenterDemoApp;
+			packageProductDependencies = (
+			);
 			productName = HelpCenterDemoApp;
 			productReference = 71D6FA452CB9D26600823B95 /* HelpCenterDemoApp.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +336,9 @@
 				Base,
 			);
 			mainGroup = 71D6FA3C2CB9D26600823B95;
+			packageReferences = (
+				7111C89E2CBA97A3003C9C59 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = 71D6FA462CB9D26600823B95 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,9 +382,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7132574D2CBAACEB00FB727B /* HelpCenterOptionsButtonContentCell.swift in Sources */,
+				7111C8932CB9E4AF003C9C59 /* HelpCenterPresenter.swift in Sources */,
+				713257492CBAAB1000FB727B /* UITableView+Extensions.swift in Sources */,
 				71D6FA4D2CB9D26600823B95 /* ViewController.swift in Sources */,
+				7132574B2CBAAC9000FB727B /* HelpOptionsButtonListView.swift in Sources */,
+				713257472CBAA5D400FB727B /* UILabel+Extensions .swift in Sources */,
 				71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */,
+				7111C8A62CBAA1D6003C9C59 /* UIView+Extensions .swift in Sources */,
+				7111C8912CB9E405003C9C59 /* HelpCenterInteractor.swift in Sources */,
+				7111C8952CBA7352003C9C59 /* HelpCenterViewProtocol.swift in Sources */,
+				7111C8972CBA8D5B003C9C59 /* HelpCenterRouter.swift in Sources */,
 				71D6FA4B2CB9D26600823B95 /* SceneDelegate.swift in Sources */,
+				713257452CBAA51000FB727B /* UIColor+Extensions .swift in Sources */,
+				7111C8A02CBA97E2003C9C59 /* HelpCenterOptionsListCell.swift in Sources */,
+				7111C8A32CBAA14A003C9C59 /* HelpCenterOptionsListTitleView.swift in Sources */,
+				7111C88D2CB9D7D6003C9C59 /* HelpCenterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +587,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -478,6 +616,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -607,6 +746,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7111C89E2CBA97A3003C9C59 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 71D6FA3D2CB9D26600823B95 /* Project object */;
 }
