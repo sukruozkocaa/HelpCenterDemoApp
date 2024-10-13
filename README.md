@@ -43,7 +43,7 @@ To run the app locally, follow these steps:
 
     bash
 
-git clone https://github.com/your-username/HelpCenterDemoApp.git
+git clone https://github.com/sukruozkocaa/HelpCenterDemoApp.git
 
 Open the project in Xcode:
 
