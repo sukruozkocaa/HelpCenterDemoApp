@@ -112,10 +112,10 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
     }
     
     func registerTableViewCells() {
-        chatContentTableView.register(cell: HelpCenterOptionsListCell.self)
-        chatContentTableView.register(cell: HelpCenterImageCell.self)
-        chatContentTableView.register(cell: HelpCenterInfoCell.self)
-        chatContentTableView.register(cell: HelpCenterUserTextBubbleCell.self)
+        chatContentTableView.register(cell: HelpCenterChatButtonListCell.self)
+        chatContentTableView.register(cell: HelpCenterChatImageCell.self)
+        chatContentTableView.register(cell: HelpCenterChatTextCell.self)
+        chatContentTableView.register(cell: HelpCenterChatClientBubbleCell.self)
     }
     
     func showEndConversationAlert() {
@@ -136,8 +136,8 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
 }
 
 // MARK: - HelpCenterOptionsListCellDelegate
-extension HelpCenterViewController: HelpCenterOptionsListCellDelegate {
-    func helpCenterOptionsListCell(didTapButton button: HelpCenterContentButtonModel) {
+extension HelpCenterViewController: HelpCenterChatButtonListCellDelegate {
+    func helpCenterChatButtonListCell(didTapButton button: HelpCenterContentButtonModel) {
         guard let stepId = button.action,
                 let bubbleMessage = button.label else { return }
         

@@ -1,5 +1,5 @@
 //
-//  HelpCenterOptionsListCell.swift
+//  HelpCenterChatButtonListCell.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,25 +7,22 @@
 
 import UIKit
 
-// MARK: - HelpCenterOptionsListCellDelegate
-protocol HelpCenterOptionsListCellDelegate: AnyObject {
-    func helpCenterOptionsListCell(didTapButton button: HelpCenterContentButtonModel)
+// MARK: - HelpCenterChatButtonListCellDelegate
+protocol HelpCenterChatButtonListCellDelegate: AnyObject {
+    func helpCenterChatButtonListCell(didTapButton button: HelpCenterContentButtonModel)
 }
 
-// MARK: - HelpOptionsListCell
-final class HelpCenterOptionsListCell: UITableViewCell {
+// MARK: - HelpCenterChatButtonListCell
+final class HelpCenterChatButtonListCell: UITableViewCell {
 
     // MARK: - Views
-    private lazy var titleView: HelpCenterOptionsListTitleView = {
-        let helpCenterOptionsListTitleView = HelpCenterOptionsListTitleView()
-        helpCenterOptionsListTitleView.configure(
-            title: "Merhaba, canlı destek hattına hoş geldiniz! Hangi konuda yardım almak istersiniz?"
-        )
+    private lazy var titleView: HelpCenterChatButtonListTitleView = {
+        let helpCenterOptionsListTitleView = HelpCenterChatButtonListTitleView()
         return helpCenterOptionsListTitleView
     }()
     
-    private lazy var buttonListView: HelpOptionsButtonListView = {
-        let helpOptionsButtonListView = HelpOptionsButtonListView()
+    private lazy var buttonListView: HelpCenterChatButtonListContentView = {
+        let helpOptionsButtonListView = HelpCenterChatButtonListContentView()
         helpOptionsButtonListView.delegate = self
         return helpOptionsButtonListView
     }()
@@ -41,7 +38,7 @@ final class HelpCenterOptionsListCell: UITableViewCell {
     static let buttonListViewTopMargin: CGFloat = 10.0
 
     // MARK: - Delegates
-    weak var delegate: HelpCenterOptionsListCellDelegate?
+    weak var delegate: HelpCenterChatButtonListCellDelegate?
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,7 +53,7 @@ final class HelpCenterOptionsListCell: UITableViewCell {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterOptionsListCell {
+private extension HelpCenterChatButtonListCell {
     final func setupUI() {
         setupViewUI()
         setupTitleView()
@@ -75,7 +72,7 @@ private extension HelpCenterOptionsListCell {
         // TODO: - Constraint fill superview extension apply
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleView.heightAnchor.constraint(equalToConstant: HelpCenterOptionsListCell.titleViewHeight),
+            titleView.heightAnchor.constraint(equalToConstant: HelpCenterChatButtonListCell.titleViewHeight),
             titleView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: titleViewXMargin
@@ -102,30 +99,25 @@ private extension HelpCenterOptionsListCell {
             ),
             buttonListView.topAnchor.constraint(
                 equalTo: titleView.bottomAnchor,
-                constant: HelpCenterOptionsListCell.buttonListViewTopMargin
+                constant: HelpCenterChatButtonListCell.buttonListViewTopMargin
             )
         ])
     }
 }
 
 // MARK: - Configure
-extension HelpCenterOptionsListCell {
+extension HelpCenterChatButtonListCell {
     final func configure(item: HelpCenterResponseModel) {
-        let content = item.content
-        
-        switch content {
-        case .text(_): break
-        case .buttons(let button):
-            titleView.configure(title: button.text ?? "")
-            buttonListView.configure(buttonList: button)            
-        case nil: break
+        if case let .buttons(buttons) = item.content {
+            titleView.configure(title: buttons.text)
+            buttonListView.configure(buttonList: buttons)
         }
     }
 }
 
-// MARK: - HelpOptionsButtonListViewDelegate
-extension HelpCenterOptionsListCell: HelpOptionsButtonListViewDelegate {
+// MARK: - HelpCenterChatButtonListContentViewDelegate
+extension HelpCenterChatButtonListCell: HelpCenterChatButtonListContentViewDelegate {
     func helpOptionsButtonListView(didTapButton button: HelpCenterContentButtonModel) {
-        delegate?.helpCenterOptionsListCell(didTapButton: button)
+        delegate?.helpCenterChatButtonListCell(didTapButton: button)
     }
 }

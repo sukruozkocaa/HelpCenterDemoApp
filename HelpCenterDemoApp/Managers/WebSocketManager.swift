@@ -1,5 +1,5 @@
 //
-//  HelpCenterWebSocketInteractor.swift
+//  WebSocketManager.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.

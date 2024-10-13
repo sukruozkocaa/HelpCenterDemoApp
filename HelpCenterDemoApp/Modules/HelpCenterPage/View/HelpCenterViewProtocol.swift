@@ -13,8 +13,8 @@ protocol HelpCenterViewProtocol: AnyObject {
     
     // Presenter -> View
     func displayMessage(_ message: HelpCenterResponseModel)
-    func registerTableViewCells()
     func loadUI()
-    func showEndConversationAlert() 
+    func registerTableViewCells()
+    func showEndConversationAlert()
     func startNewConversation()
 }

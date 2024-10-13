@@ -17,10 +17,10 @@ enum StepTypes: Codable {
 
 // MARK: - HelpCenterResponseModel
 struct HelpCenterResponseModel: Codable {
-    let step: HelpCenterStepTypes?
+    let step: HelpCenterChatStepTypes?
     let type: StepTypes?
     let content: ContentType?
-    let action: HelpCenterStepTypes?
+    let action: HelpCenterChatStepTypes?
 }
 
 // MARK: - HelpCenterContentModel
@@ -32,7 +32,7 @@ struct HelpCenterContentModel: Codable {
 // MARK: - HelpCenterContentButtonModel
 struct HelpCenterContentButtonModel: Codable {
     let label: String?
-    let action: HelpCenterStepTypes?
+    let action: HelpCenterChatStepTypes?
 }
 
 // MARK: - Enum ContentType

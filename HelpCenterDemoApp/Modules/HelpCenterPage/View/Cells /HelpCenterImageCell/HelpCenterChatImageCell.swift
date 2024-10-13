@@ -1,5 +1,5 @@
 //
-//  HelpCenterImageCell.swift
+//  HelpCenterChatImageCell.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -8,12 +8,12 @@
 import UIKit
 
 // MARK: - HelpCenterImageCellDelegate
-protocol HelpCenterImageCellDelegate: AnyObject {
-    func helpCenterImageCell(didTapImage image: UIImage)
+protocol HelpCenterChatImageCellDelegate: AnyObject {
+    func helpCenterChatImageCell(didTapImage image: UIImage)
 }
 
 // MARK: - HelpCenterImageCell
-final class HelpCenterImageCell: UITableViewCell {
+final class HelpCenterChatImageCell: UITableViewCell {
 
     // MARK: - Views
     private lazy var infoImageView: UIImageView = {
@@ -39,7 +39,7 @@ final class HelpCenterImageCell: UITableViewCell {
     private let infoImageViewBorderWidth: CGFloat = 0.5
     
     // MARK: - Delegates
-    weak var delegate: HelpCenterImageCellDelegate?
+    weak var delegate: HelpCenterChatImageCellDelegate?
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,7 +54,7 @@ final class HelpCenterImageCell: UITableViewCell {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterImageCell {
+private extension HelpCenterChatImageCell {
     final func setupUI() {
         setupViewUI()
         setupInfoImageView()
@@ -84,24 +84,19 @@ private extension HelpCenterImageCell {
 }
 
 // MARK: - Configure
-extension HelpCenterImageCell {
+extension HelpCenterChatImageCell {
     final func configure(content: ContentType?) {
-        switch content {
-        case .text(let imageURL):
-            infoImageView.setImageURL(url: imageURL)
-        case .buttons(_):
-            return
-        case nil:
-            return
+        if case let .text(imageURLString) = content {
+            infoImageView.setImageURL(url: imageURLString)
         }
     }
 }
 
 // MARK: - Tap To Handlers
 @objc
-private extension HelpCenterImageCell {
+private extension HelpCenterChatImageCell {
     final func tapToImageView() {
         guard let image = infoImageView.image else { return }
-        delegate?.helpCenterImageCell(didTapImage: image)
+        delegate?.helpCenterChatImageCell(didTapImage: image)
     }
 }

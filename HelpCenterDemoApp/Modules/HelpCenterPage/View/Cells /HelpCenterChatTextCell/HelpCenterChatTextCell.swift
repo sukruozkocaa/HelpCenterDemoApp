@@ -1,5 +1,5 @@
 //
-//  HelpCenterInfoCell.swift
+//  HelpCenterChatTextCell.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-// MARK: - HelpCenterInfoCell
-final class HelpCenterInfoCell: UITableViewCell {
+// MARK: - HelpCenterChatTextCell
+final class HelpCenterChatTextCell: UITableViewCell {
     
     // MARK: - Views
     private lazy var contentVStackView: UIStackView = {
@@ -24,8 +24,8 @@ final class HelpCenterInfoCell: UITableViewCell {
         return stackView
     }()
     
-    private lazy var iconAndTitleView: HelpCenterInfoIconAndTitleView = {
-        let helpCenterInfoIconAndTitleView = HelpCenterInfoIconAndTitleView()
+    private lazy var iconAndTitleView: IconAndTitleView = {
+        let helpCenterInfoIconAndTitleView = IconAndTitleView()
         return helpCenterInfoIconAndTitleView
     }()
     
@@ -69,7 +69,7 @@ final class HelpCenterInfoCell: UITableViewCell {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterInfoCell {
+private extension HelpCenterChatTextCell {
     final func setupUI() {
         setupViewUI()
         setupContentVStackView()
@@ -90,11 +90,11 @@ private extension HelpCenterInfoCell {
             contentVStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentVStackView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: HelpCenterInfoCell.contentVStackViewXMargin
+                constant: HelpCenterChatTextCell.contentVStackViewXMargin
             ),
             contentVStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -(HelpCenterInfoCell.contentVStackViewXMargin)
+                constant: -(HelpCenterChatTextCell.contentVStackViewXMargin)
             )
         ])
     }
@@ -106,21 +106,16 @@ private extension HelpCenterInfoCell {
     final func setupActionButton() {
         contentVStackView.addArrangedSubview(actionButton)
         actionButton.heightAnchor.constraint(
-            equalToConstant: HelpCenterInfoCell.actionButtonHeight
+            equalToConstant: HelpCenterChatTextCell.actionButtonHeight
         ).isActive = true
     }
 }
 
 // MARK: - Configure
-extension HelpCenterInfoCell {
+extension HelpCenterChatTextCell {
     final func configure(item: HelpCenterResponseModel) {
-        switch item.content {
-        case .text(let text):
-            iconAndTitleView.configure(infoText: text)
-        case .buttons(_):
-            break
-        case .none:
-            break
+        if case let .text(infoText) = item.content {
+            iconAndTitleView.configure(infoText: infoText)
         }
     }
 }

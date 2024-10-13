@@ -1,13 +1,14 @@
 //
-//  HelpCenterStepManager.swift
+//  HelpCenterChatStepTypes.swift
 //  HelpCenterDemoApp
 //
-//  Created by Şükrü on 12.10.2024.
+//  Created by Şükrü on 13.10.2024.
 //
 
 import Foundation
-import UIKit
-enum HelpCenterStepTypes {
+
+// MARK: - HelpCenterStepTypes
+enum HelpCenterChatStepTypes {
     case step1
     case step2
     case step3
@@ -20,7 +21,7 @@ enum HelpCenterStepTypes {
     case end_conversation
 }
 
-extension HelpCenterStepTypes: Codable {
+extension HelpCenterChatStepTypes: Codable {
     var stepDetail: HelpCenterResponseModel? {
         switch self {
         case .step1:
@@ -130,26 +131,8 @@ extension HelpCenterStepTypes: Codable {
         case .await_user_choice: break
         case .show_guide: break
         case .end_conversation: break
-//            let content = ContentType.text("Bu konuşmayı sonlandırdınız.")
-//            let stepDetailResponse: HelpCenterResponseModel = .init(
-//                step: self,
-//                type: .text,
-//                content: content,
-//                action: .end_conversation
-//            )
-//
-//            return stepDetailResponse
         }
 
         return nil
-    }
-}
-
-final class HelpCenterStepManager {
-    static let shared = HelpCenterStepManager()
-    
-    func createStepDetails(stepId: HelpCenterStepTypes) -> HelpCenterResponseModel? {
-        guard let responseDetail = stepId.stepDetail else { return nil }
-        return responseDetail
     }
 }

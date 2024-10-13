@@ -1,5 +1,5 @@
 //
-//  HelpCenterOptionsButtonContentCell.swift
+//  HelpCenterChatButtonListContentItemCell.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-// MARK: - HelpCenterOptionsButtonContentCellDelegate
-protocol HelpCenterOptionsButtonContentCellDelegate: AnyObject {
-    func helpCenterOptionsButtonContentCell(didTapButton button: HelpCenterContentButtonModel)
+// MARK: - HelpCenterChatButtonListContentItemCellDelegate
+protocol HelpCenterChatButtonListContentItemCellDelegate: AnyObject {
+    func helpCenterChatButtonListContentItemCell(didTapButton button: HelpCenterContentButtonModel)
 }
 
-// MARK: - HelpCenterOptionsButtonContentCell
-final class HelpCenterOptionsButtonContentCell: UITableViewCell {
+// MARK: - HelpCenterChatButtonListContentItemCell
+final class HelpCenterChatButtonListContentItemCell: UITableViewCell {
 
     // MARK: - Views
     private lazy var actionButton: UIButton = {
@@ -32,7 +32,7 @@ final class HelpCenterOptionsButtonContentCell: UITableViewCell {
     private var buttonDetail: HelpCenterContentButtonModel?
     
     // MARK: - Delegates
-    weak var delegate: HelpCenterOptionsButtonContentCellDelegate?
+    weak var delegate: HelpCenterChatButtonListContentItemCellDelegate?
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,7 +46,7 @@ final class HelpCenterOptionsButtonContentCell: UITableViewCell {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterOptionsButtonContentCell {
+private extension HelpCenterChatButtonListContentItemCell {
     final func setupUI() {
         setupViewUI()
         setupActionButton()
@@ -70,7 +70,7 @@ private extension HelpCenterOptionsButtonContentCell {
 }
 
 // MARK: - Configure
-extension HelpCenterOptionsButtonContentCell {
+extension HelpCenterChatButtonListContentItemCell {
     final func configure(button: HelpCenterContentButtonModel) {
         self.buttonDetail = button
         actionButton.setTitle(button.label, for: .normal)
@@ -79,9 +79,9 @@ extension HelpCenterOptionsButtonContentCell {
 
 // MARK: - Tap To Handlers
 @objc
-private extension HelpCenterOptionsButtonContentCell {
+private extension HelpCenterChatButtonListContentItemCell {
     final func tapToSelectItem() {
         guard let buttonDetail = self.buttonDetail else { return }
-        delegate?.helpCenterOptionsButtonContentCell(didTapButton: buttonDetail)
+        delegate?.helpCenterChatButtonListContentItemCell(didTapButton: buttonDetail)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  HelpCenterOptionsButtonListCell.swift
+//  HelpCenterChatButtonListContentView.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-// MARK: - HelpOptionsButtonListViewDelegate
-protocol HelpOptionsButtonListViewDelegate: AnyObject {
+// MARK: - HelpCenterChatButtonListContentViewDelegate
+protocol HelpCenterChatButtonListContentViewDelegate: AnyObject {
     func helpOptionsButtonListView(didTapButton button: HelpCenterContentButtonModel)
 }
 
-// MARK: - HelpCenterOptionsButtonListCell
-final class HelpOptionsButtonListView: UIView {
+// MARK: - HelpCenterChatButtonListContentView
+final class HelpCenterChatButtonListContentView: UIView {
 
     // MARK: - Views
     private lazy var buttonListTableView: UITableView = {
@@ -27,7 +27,7 @@ final class HelpOptionsButtonListView: UIView {
         tableView.separatorInset = .zero
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(cell: HelpCenterOptionsButtonContentCell.self)
+        tableView.register(cell: HelpCenterChatButtonListContentItemCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -40,7 +40,7 @@ final class HelpOptionsButtonListView: UIView {
     static let cellHeight: CGFloat = 50.0
     
     // MARK: - Delegates
-    weak var delegate: HelpOptionsButtonListViewDelegate?
+    weak var delegate: HelpCenterChatButtonListContentViewDelegate?
     
     // MARK: - Variables
     private var buttonList: HelpCenterContentModel? = nil
@@ -58,7 +58,7 @@ final class HelpOptionsButtonListView: UIView {
 }
 
 // MARK: - Setup UI
-private extension HelpOptionsButtonListView {
+private extension HelpCenterChatButtonListContentView {
     final func setupUI() {
         setupViewUI()
         setupButtonListTableView()
@@ -82,24 +82,24 @@ private extension HelpOptionsButtonListView {
 }
 
 // MARK: - UITableViewDelegate
-extension HelpOptionsButtonListView: UITableViewDelegate {}
+extension HelpCenterChatButtonListContentView: UITableViewDelegate {}
 
 // MARK: - UITableViewDataSource
-extension HelpOptionsButtonListView: UITableViewDataSource {
+extension HelpCenterChatButtonListContentView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return buttonList?.buttons?.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let item = buttonList?.buttons?[indexPath.row] else { return UITableViewCell() }
-        let cell = tableView.dequeueReusableCell(for: HelpCenterOptionsButtonContentCell.self, for: indexPath)
+        let cell = tableView.dequeueReusableCell(for: HelpCenterChatButtonListContentItemCell.self, for: indexPath)
         cell.delegate = self
         cell.configure(button: item)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return HelpOptionsButtonListView.cellHeight
+        return HelpCenterChatButtonListContentView.cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -109,7 +109,7 @@ extension HelpOptionsButtonListView: UITableViewDataSource {
 }
 
 // MARK: - Configure
-extension HelpOptionsButtonListView {
+extension HelpCenterChatButtonListContentView {
     final func configure(buttonList: HelpCenterContentModel) {
         self.buttonList = buttonList
         
@@ -121,8 +121,8 @@ extension HelpOptionsButtonListView {
 }
 
 // MARK: - HelpCenterOptionsButtonContentCellDelegate
-extension HelpOptionsButtonListView: HelpCenterOptionsButtonContentCellDelegate {
-    func helpCenterOptionsButtonContentCell(didTapButton button: HelpCenterContentButtonModel) {
+extension HelpCenterChatButtonListContentView: HelpCenterChatButtonListContentItemCellDelegate {
+    func helpCenterChatButtonListContentItemCell(didTapButton button: HelpCenterContentButtonModel) {
         delegate?.helpOptionsButtonListView(didTapButton: button)
     }
 }

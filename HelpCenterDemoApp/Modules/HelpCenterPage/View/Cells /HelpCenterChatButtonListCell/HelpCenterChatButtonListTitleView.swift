@@ -1,5 +1,5 @@
 //
-//  HelpCenterOptionsListTitleView.swift
+//  HelpCenterChatButtonListTitleView.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-// MARK: - HelpCenterOptionsListTitleView
-final class HelpCenterOptionsListTitleView: UIView {
+// MARK: - HelpCenterChatButtonListTitleView
+final class HelpCenterChatButtonListTitleView: UIView {
     
     // MARK: - Views
     private lazy var titleContainerView: UIView = {
@@ -54,7 +54,7 @@ final class HelpCenterOptionsListTitleView: UIView {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterOptionsListTitleView {
+private extension HelpCenterChatButtonListTitleView {
     final func setupUI() {
         setupViewUI()
         setupTitleContainerView()
@@ -95,8 +95,8 @@ private extension HelpCenterOptionsListTitleView {
 }
 
 // MARK: - Configure
-extension HelpCenterOptionsListTitleView {
-    final func configure(title: String) {
+extension HelpCenterChatButtonListTitleView {
+    final func configure(title: String?) {
         titleLabel.text = title
     }
 }

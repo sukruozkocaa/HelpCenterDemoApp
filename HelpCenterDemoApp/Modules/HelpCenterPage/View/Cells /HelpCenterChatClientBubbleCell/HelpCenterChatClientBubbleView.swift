@@ -1,5 +1,5 @@
 //
-//  HelpCenterUserTextBubbleView.swift
+//  HelpCenterChatClientBubbleView.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-// MARK: - HelpCenterUserTextBubbleView
-final class HelpCenterUserTextBubbleView: UIView {
+// MARK: - HelpCenterChatClientBubbleView
+final class HelpCenterChatClientBubbleView: UIView {
     
     // MARK: - Views
     private lazy var contentVStackView: UIStackView = {
@@ -68,7 +68,7 @@ final class HelpCenterUserTextBubbleView: UIView {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterUserTextBubbleView {
+private extension HelpCenterChatClientBubbleView {
     final func setupUI() {
         setupViewUI()
         setupContentVStackView()
@@ -115,7 +115,7 @@ private extension HelpCenterUserTextBubbleView {
 }
 
 // MARK: - Configure
-extension HelpCenterUserTextBubbleView {
+extension HelpCenterChatClientBubbleView {
     final func configure(bubbleMessage: String) {
         textLabel.text = bubbleMessage
     }

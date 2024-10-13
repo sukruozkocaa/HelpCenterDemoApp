@@ -19,7 +19,7 @@ protocol HelpCenterInteractorProtocol {
     func connectWebSocket(socketURL: String)
     func disconnectWebSocket()
     func sendMessage(_ response: HelpCenterResponseModel)
-    func getHelpCenterStepDetails(stepId: HelpCenterStepTypes)
+    func getHelpCenterStepDetails(stepId: HelpCenterChatStepTypes)
     func calculateCellHeight(_ response: HelpCenterResponseModel) -> CGFloat
     func dequeueReusableCell(_ response: HelpCenterResponseModel, tableView: UITableView,  indexPath: IndexPath) -> UITableViewCell
 }
@@ -41,18 +41,21 @@ final class HelpCenterInteractor: HelpCenterInteractorProtocol {
     
     func disconnectWebSocket() {
         WebSocketManager.shared.disconnectWebSocket()
+        WebSocketManager.shared.delegate = nil
+        presenter?.didSocketDisconnected()
     }
     
     func connectWebSocket(socketURL: String) {
         WebSocketManager.shared.delegate = self
         WebSocketManager.shared.connectWebSocket(socketURL: socketURL)
+        presenter?.didSocketConnected()
     }
         
     func sendMessage(_ response: HelpCenterResponseModel) {
         WebSocketManager.shared.sendMessage(response)
     }
     
-    func getHelpCenterStepDetails(stepId: HelpCenterStepTypes) {
+    func getHelpCenterStepDetails(stepId: HelpCenterChatStepTypes) {
         guard let stepDetails = HelpCenterStepManager.shared.createStepDetails(stepId: stepId) else { return }
         WebSocketManager.shared.sendMessage(stepDetails)
     }
@@ -72,20 +75,20 @@ final class HelpCenterInteractor: HelpCenterInteractorProtocol {
 
         switch type {
         case .button:
-            let cell = tableView.dequeueReusableCell(for: HelpCenterOptionsListCell.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(for: HelpCenterChatButtonListCell.self, for: indexPath)
             cell.configure(item: data)
             cell.delegate = self
             return cell
         case .text:
-            let cell = tableView.dequeueReusableCell(for: HelpCenterInfoCell.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(for: HelpCenterChatTextCell.self, for: indexPath)
             cell.configure(item: data)
             return cell
         case .image:
-            let cell = tableView.dequeueReusableCell(for: HelpCenterImageCell.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(for: HelpCenterChatImageCell.self, for: indexPath)
             cell.configure(content: data.content)
             return cell
         case .userBubble:
-            let cell = tableView.dequeueReusableCell(for: HelpCenterUserTextBubbleCell.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(for: HelpCenterChatClientBubbleCell.self, for: indexPath)
             cell.configure(content: data.content)
             return cell
         case nil:
@@ -106,8 +109,8 @@ extension HelpCenterInteractor: WebSocketInteractorDelegate {
 }
 
 // MARK: - HelpCenterOptionsListCellDelegate
-extension HelpCenterInteractor: HelpCenterOptionsListCellDelegate {
-    func helpCenterOptionsListCell(didTapButton button: HelpCenterContentButtonModel) {
+extension HelpCenterInteractor: HelpCenterChatButtonListCellDelegate {
+    func helpCenterChatButtonListCell(didTapButton button: HelpCenterContentButtonModel) {
         guard let bubbleMessage = button.label,
               let stepId = button.action else { return }
         
@@ -125,63 +128,23 @@ extension HelpCenterInteractor: HelpCenterOptionsListCellDelegate {
 private extension HelpCenterInteractor {
     final func calculateCellHeight(response: HelpCenterResponseModel) -> CGFloat {
         let type = response.type
-        var cellHeight: CGFloat = .zero
-        let screenWidth: CGFloat = UIScreen.main.bounds.width
         
         switch type {
         case .button:
-            cellHeight = cellHeight + HelpCenterOptionsListCell.titleViewHeight
-            cellHeight = cellHeight + HelpCenterOptionsListCell.buttonListViewTopMargin
-            
-            switch response.content {
-            case .buttons(let buttons):
-                buttons.buttons?.forEach({ button in
-                    cellHeight = cellHeight + HelpOptionsButtonListView.cellHeight
-                })
-            case .none:
-                return .zero
-            case .some(.text(_)):
-                return .zero
-            }
-            
-            return cellHeight
+            return calculateButtonCellHeight(response)
         case .text:
-            cellHeight = cellHeight + HelpCenterInfoIconAndTitleView.contentHStackViewTopMargin
-
-            switch response.content {
-            case .text(let text):
-                let totalFrame = (HelpCenterInfoCell.contentVStackViewXMargin * 2) +
-                (HelpCenterInfoIconAndTitleView.contentHStackViewXMargin * 2) +
-                (HelpCenterInfoIconAndTitleView.contentHStackViewItemSpacing) +
-                (HelpCenterInfoIconAndTitleView.iconImageViewFrame)
-                
-                let frame = screenWidth - totalFrame
-                
-                cellHeight = cellHeight + text.heightWithConstrainedWidth(
-                    width: frame,
-                    font: .systemFont(ofSize: 13.0, weight: .semibold)
-                )
-
-                cellHeight = cellHeight + HelpCenterInfoCell.contentVStackViewItemSpacing
-                cellHeight = cellHeight + HelpCenterInfoCell.actionButtonHeight
-                return cellHeight
-            case .buttons(_):
-                return .zero
-            case .none:
-                break
-            }
-            return .zero
+            return calculateTextCellHeight(response)
         case .image:
-            return 187.0
+            return calculateImageCellHeight()
         case .userBubble:
-            return 40.0
+            return calculateUserBubbleCellHeight()
         case nil:
             return .zero
         }
     }
     
     final func createUserMessageBubbleData(bubbleMessage: String) -> HelpCenterResponseModel {
-        var bubbleData = HelpCenterResponseModel(
+        let bubbleData = HelpCenterResponseModel(
             step: .await_user_choice,
             type: .userBubble,
             content: .text(bubbleMessage),
@@ -189,5 +152,49 @@ private extension HelpCenterInteractor {
         )
         
         return bubbleData
+    }
+}
+
+// MARK: - Cell Height Calculation Methods
+private extension HelpCenterInteractor {
+    func calculateButtonCellHeight(_ response: HelpCenterResponseModel) -> CGFloat {
+        var cellHeight: CGFloat = HelpCenterChatButtonListCell.titleViewHeight +
+        HelpCenterChatButtonListCell.buttonListViewTopMargin
+        
+        if case let .buttons(buttons) = response.content {
+            buttons.buttons?.forEach { _ in
+                cellHeight += HelpCenterChatButtonListContentView.cellHeight
+            }
+        }
+        
+        return cellHeight
+    }
+    
+    func calculateTextCellHeight(_ response: HelpCenterResponseModel) -> CGFloat {
+        var cellHeight: CGFloat = IconAndTitleView.contentHStackViewTopMargin
+        let screenWidth: CGFloat = UIScreen.main.bounds.width
+        
+        if case let .text(text) = response.content {
+            let totalFrame = (HelpCenterChatTextCell.contentVStackViewXMargin * 2) +
+            (IconAndTitleView.contentHStackViewXMargin * 2) +
+            (IconAndTitleView.contentHStackViewItemSpacing) +
+            (IconAndTitleView.iconImageViewFrame)
+            
+            let frameWidth = screenWidth - totalFrame
+            cellHeight += text.heightWithConstrainedWidth(width: frameWidth,
+                                                          font: .systemFont(ofSize: 13.0, weight: .semibold))
+            cellHeight += HelpCenterChatTextCell.contentVStackViewItemSpacing +
+            HelpCenterChatTextCell.actionButtonHeight
+        }
+        
+        return cellHeight
+    }
+    
+    func calculateImageCellHeight() -> CGFloat {
+        return 187.0
+    }
+    
+    func calculateUserBubbleCellHeight() -> CGFloat {
+        return 40.0
     }
 }

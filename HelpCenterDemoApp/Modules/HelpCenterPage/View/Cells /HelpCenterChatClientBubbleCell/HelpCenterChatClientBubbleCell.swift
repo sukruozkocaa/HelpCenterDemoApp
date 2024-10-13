@@ -1,5 +1,5 @@
 //
-//  HelpCenterUserTextBubbleCell.swift
+//  HelpCenterChatClientBubbleCell.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-// MARK: - HelpCenterUserTextBubbleCell
-final class HelpCenterUserTextBubbleCell: UITableViewCell {
+// MARK: - HelpCenterChatClientBubbleCell
+final class HelpCenterChatClientBubbleCell: UITableViewCell {
 
     // MARK: - Views
-    private lazy var bubbleView: HelpCenterUserTextBubbleView = {
-        let helpCenterUserTextBubbleView = HelpCenterUserTextBubbleView()
+    private lazy var bubbleView: HelpCenterChatClientBubbleView = {
+        let helpCenterUserTextBubbleView = HelpCenterChatClientBubbleView()
         return helpCenterUserTextBubbleView
     }()
     
@@ -28,7 +28,7 @@ final class HelpCenterUserTextBubbleCell: UITableViewCell {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterUserTextBubbleCell {
+private extension HelpCenterChatClientBubbleCell {
     final func setupUI() {
         setupViewUI()
         setupBubbleView()
@@ -52,15 +52,10 @@ private extension HelpCenterUserTextBubbleCell {
 }
 
 // MARK: - Extension
-extension HelpCenterUserTextBubbleCell {
+extension HelpCenterChatClientBubbleCell {
     final func configure(content: ContentType?) {
-        switch content {
-        case .text(let bubbleMessage):
+        if case let .text(bubbleMessage) = content {
             bubbleView.configure(bubbleMessage: bubbleMessage)
-        case .buttons(_):
-            break
-        case .none:
-            break
         }
     }
 }

@@ -21,7 +21,7 @@ protocol HelpCenterPresenterProtocol: AnyObject {
     func registerTableViewCells()
     func connectWebSocket()
     func disconnectWebSocket()
-    func sendSocketMessage(stepId: HelpCenterStepTypes)
+    func sendSocketMessage(stepId: HelpCenterChatStepTypes)
     func calculateCellHeight(response: HelpCenterResponseModel) -> CGFloat
     func createUserSendBubble(bubbleMessage: String)
     func heightForHeaderInSection() -> CGFloat
@@ -47,7 +47,7 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
         interactor?.getHelpCenterStepDetails(stepId: .step1)
     }
     
-    func sendSocketMessage(stepId: HelpCenterStepTypes) {
+    func sendSocketMessage(stepId: HelpCenterChatStepTypes) {
         self.interactor?.getHelpCenterStepDetails(stepId: stepId)
     }
     

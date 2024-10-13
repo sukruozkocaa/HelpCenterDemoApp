@@ -1,5 +1,5 @@
 //
-//  HelpCenterInfoIconAndTitleView.swift
+//  IconAndTitleView.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 12.10.2024.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-// MARK: - HelpCenterInfoIconAndTitleView
-final class HelpCenterInfoIconAndTitleView: UIView {
+// MARK: - IconAndTitleView
+final class IconAndTitleView: UIView {
     
     // MARK: - Views
     private lazy var contentHStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .leading
-        let itemSpacing = HelpCenterInfoIconAndTitleView.contentHStackViewItemSpacing
+        let itemSpacing = IconAndTitleView.contentHStackViewItemSpacing
         stackView.spacing = itemSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -40,10 +40,10 @@ final class HelpCenterInfoIconAndTitleView: UIView {
     }()
             
     // MARK: - Static Constants
-    static let contentHStackViewItemSpacing: CGFloat = 9.0
     static let iconImageViewFrame: CGFloat = 24.0
-    static let contentHStackViewTopMargin: CGFloat = 10.0
     static let contentHStackViewXMargin: CGFloat = 10.0
+    static let contentHStackViewTopMargin: CGFloat = 10.0
+    static let contentHStackViewItemSpacing: CGFloat = 9.0
     
     // MARK: - Init
     init() {
@@ -57,7 +57,7 @@ final class HelpCenterInfoIconAndTitleView: UIView {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterInfoIconAndTitleView {
+private extension IconAndTitleView {
     final func setupUI() {
         setupViewUI()
         setupContentHStackView()
@@ -76,15 +76,15 @@ private extension HelpCenterInfoIconAndTitleView {
         NSLayoutConstraint.activate([
             contentHStackView.topAnchor.constraint(
                 equalTo: topAnchor,
-                constant: HelpCenterInfoIconAndTitleView.contentHStackViewTopMargin
+                constant: IconAndTitleView.contentHStackViewTopMargin
             ),
             contentHStackView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: HelpCenterInfoIconAndTitleView.contentHStackViewXMargin
+                constant: IconAndTitleView.contentHStackViewXMargin
             ),
             contentHStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -(HelpCenterInfoIconAndTitleView.contentHStackViewXMargin)
+                constant: -(IconAndTitleView.contentHStackViewXMargin)
             ),
             contentHStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -95,10 +95,10 @@ private extension HelpCenterInfoIconAndTitleView {
         
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(
-                equalToConstant: HelpCenterInfoIconAndTitleView.iconImageViewFrame
+                equalToConstant: IconAndTitleView.iconImageViewFrame
             ),
             iconImageView.heightAnchor.constraint(
-                equalToConstant: HelpCenterInfoIconAndTitleView.iconImageViewFrame
+                equalToConstant: IconAndTitleView.iconImageViewFrame
             )
         ])
     }
@@ -109,7 +109,7 @@ private extension HelpCenterInfoIconAndTitleView {
 }
 
 // MARK: - Configure
-extension HelpCenterInfoIconAndTitleView {
+extension IconAndTitleView {
     final func configure(infoText: String) {
         titleLabel.text = infoText
     }
