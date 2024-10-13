@@ -33,3 +33,36 @@ Key Components
     HelpCenterChatStepTypes:
         Enum that represents different steps in the chat flow.
         Each step has a raw value to map actions within the chat system.
+
+
+        Installation
+
+To run the app locally, follow these steps:
+
+    Clone the repository:
+
+    bash
+
+git clone https://github.com/your-username/HelpCenterDemoApp.git
+
+Open the project in Xcode:
+
+bash
+
+    cd HelpCenterDemoApp
+    open HelpCenterDemoApp.xcodeproj
+
+    Build and run the project in the simulator or on a device.
+
+Usage
+
+    Starting a New Chat: The app allows users to start a new conversation with a simulated support agent. Messages are displayed dynamically, and the user can choose from different options to continue the conversation.
+    Ending a Conversation: The user can also choose to end the chat, which triggers an alert and clears the conversation history.
+
+Future Improvements
+
+    Improved WebSocket Communication: Enhance the WebSocket handling to support reconnections and more complex message flows.
+
+Contributing
+
+Feel free to submit pull requests or open issues if you have suggestions for improvements. Contributions are always welcome!
