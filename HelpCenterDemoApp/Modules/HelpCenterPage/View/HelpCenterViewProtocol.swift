@@ -17,4 +17,5 @@ protocol HelpCenterViewProtocol: AnyObject {
     func registerTableViewCells()
     func showEndConversationAlert()
     func startNewConversation()
+    func socketConnectionStatus(isConnected: Bool)
 }

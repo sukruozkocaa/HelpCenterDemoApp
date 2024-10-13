@@ -148,11 +148,13 @@ extension HelpCenterPresenter: HelpCenterInteractorResponseProtocol {
     
     /// Called when the socket connection is established.
     func didSocketConnected() {
+        view?.socketConnectionStatus(isConnected: true)
         print("Socket Connected")
     }
     
     /// Called when the socket connection is closed.
     func didSocketDisconnected() {
+        view?.socketConnectionStatus(isConnected: false)
         print("Socket Disconnected")
     }
 }

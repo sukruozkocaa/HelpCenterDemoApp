@@ -11,11 +11,17 @@ import UIKit
 final class HelpCenterViewController: UIViewController {
 
     // MARK: - Views
+    private lazy var navigationBarContentView: HelpCenterNavigationContentView = {
+        let helpCenterNavigationContentView = HelpCenterNavigationContentView()
+        return helpCenterNavigationContentView
+    }()
+    
     private lazy var chatContentTableView: UITableView = {
         let tableView = UITableView(
             frame: .zero,
             style: .grouped
         )
+        tableView.contentInset.top = 30.0
         tableView.contentInset.bottom = 30.0
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -44,6 +50,7 @@ private extension HelpCenterViewController {
     
     final func setupViewUI() {
         view.backgroundColor = .white
+        navigationItem.titleView = navigationBarContentView
     }
     
     final func setupChatContentTableView() {
@@ -98,7 +105,6 @@ extension HelpCenterViewController: UITableViewDataSource {
         let headerView = UIView()
         return headerView
     }
-    
 }
 
 // MARK: - HelpCenterViewProtocol
@@ -132,6 +138,10 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
     func startNewConversation() {
         self.chatContentTableView.reloadTableView()
         self.presenter?.sendSocketMessage(stepId: .step1)
+    }
+    
+    func socketConnectionStatus(isConnected: Bool) {
+        navigationBarContentView.configure(isConnectWebSocket: isConnected)
     }
     
 }
