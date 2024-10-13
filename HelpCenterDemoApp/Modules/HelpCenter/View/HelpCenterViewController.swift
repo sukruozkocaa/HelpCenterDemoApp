@@ -11,8 +11,8 @@ import UIKit
 final class HelpCenterViewController: UIViewController {
 
     // MARK: - Views
-    private lazy var navigationBarContentView: HelpCenterNavigationContentView = {
-        let helpCenterNavigationContentView = HelpCenterNavigationContentView()
+    private lazy var navigationBarContentView: HelpCenterNavigationBarContentView = {
+        let helpCenterNavigationContentView = HelpCenterNavigationBarContentView()
         return helpCenterNavigationContentView
     }()
     
@@ -21,8 +21,8 @@ final class HelpCenterViewController: UIViewController {
             frame: .zero,
             style: .grouped
         )
-        tableView.contentInset.top = 30.0
-        tableView.contentInset.bottom = 30.0
+        tableView.contentInset.top = tableViewInset
+        tableView.contentInset.bottom = tableViewInset
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -34,25 +34,37 @@ final class HelpCenterViewController: UIViewController {
     // MARK: - Public Variables
     var presenter: HelpCenterPresenterProtocol?
         
+    // MARK: - Private Constants
+    private let tableViewInset: CGFloat = 30.0
+    
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        /// Called after the view has been loaded into memory. Triggers the presenter to perform any setup.
         presenter?.viewDidLoad()
+    }
+    
+    deinit {
+        /// Deinitializer that disconnects the WebSocket when the view controller is deallocated.
+        presenter?.disconnectWebSocket()
     }
 }
 
 // MARK: - Setup UI
 private extension HelpCenterViewController {
+    /// Sets up the UI components of the view.
     final func setupUI() {
         setupViewUI()
         setupChatContentTableView()
     }
     
+    /// Sets up the general view UI including background color and navigation item.
     final func setupViewUI() {
         view.backgroundColor = .white
         navigationItem.titleView = navigationBarContentView
     }
     
+    /// Configures the chat content table view's layout constraints.
     final func setupChatContentTableView() {
         view.addSubview(chatContentTableView)
         
@@ -73,7 +85,8 @@ extension HelpCenterViewController: UITableViewDelegate {}
 // MARK: - UITableViewDataSource
 extension HelpCenterViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.response.count ?? .zero
+        guard let responseItems = presenter?.responseData() else { return .zero }
+        return responseItems.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,18 +94,18 @@ extension HelpCenterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let data = presenter?.response[indexPath.section],
-              let cell = presenter?.dequeueReusableCell(data, tableView: tableView, indexPath: indexPath) else {
+        guard let responseItems = presenter?.responseData() else { return UITableViewCell() }
+        let item = responseItems[indexPath.section]
+        guard let cell = presenter?.dequeueReusableCell(item, tableView: tableView, indexPath: indexPath) else {
             return UITableViewCell()
         }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let data = presenter?.response[indexPath.section] else { return .zero }
-        let height = presenter?.calculateCellHeight(response: data)
-        
+        guard let responseItems = presenter?.responseData() else { return .zero }
+
+        let height = presenter?.calculateCellHeight(response: responseItems[indexPath.section])
         return height ?? .zero
     }
     
@@ -109,15 +122,12 @@ extension HelpCenterViewController: UITableViewDataSource {
 
 // MARK: - HelpCenterViewProtocol
 extension HelpCenterViewController: HelpCenterViewProtocol {
+    /// Initializes the UI components when the view is loaded.
     func loadUI() {
         setupUI()
     }
     
-    func displayMessage(_ message: HelpCenterResponseModel) {
-        chatContentTableView.reloadTableView()
-        chatContentTableView.scrollToBottom()
-    }
-    
+    /// Registers the custom cells used in the table view.
     func registerTableViewCells() {
         chatContentTableView.register(cell: HelpCenterChatButtonListCell.self)
         chatContentTableView.register(cell: HelpCenterChatImageCell.self)
@@ -125,6 +135,7 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
         chatContentTableView.register(cell: HelpCenterChatClientBubbleCell.self)
     }
     
+    /// Displays an alert to confirm whether to end the conversation.
     func showEndConversationAlert() {
         UIAlertHelper.shared.showEndConversationAlert(in: self) { [weak self] in
             guard let self else { return }
@@ -134,20 +145,28 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
             self.presenter?.clearResponses()
         }
     }
-    
-    func startNewConversation() {
-        self.chatContentTableView.reloadTableView()
-        self.presenter?.sendSocketMessage(stepId: .step1)
-    }
-    
+
+    /// Updates the navigation bar based on the WebSocket connection status.
+    /// - Parameter isConnected: A boolean indicating whether the WebSocket is connected.
     func socketConnectionStatus(isConnected: Bool) {
         navigationBarContentView.configure(isConnectWebSocket: isConnected)
+    }
+    
+    /// Reloads the table view to reflect any changes in data.
+    func reloadTableView() {
+        chatContentTableView.reloadTableView()
+    }
+    
+    /// Scrolls the table view to the bottom after new messages are added.
+    func scrollToBottomTableView() {
+        chatContentTableView.scrollToBottom()
     }
     
 }
 
 // MARK: - HelpCenterOptionsListCellDelegate
 extension HelpCenterViewController: HelpCenterChatButtonListCellDelegate {
+    /// Handles the button tap action in the Help Center chat button list cell.
     func helpCenterChatButtonListCell(didTapButton button: HelpCenterContentButtonModel) {
         guard let stepId = button.action,
                 let bubbleMessage = button.label else { return }

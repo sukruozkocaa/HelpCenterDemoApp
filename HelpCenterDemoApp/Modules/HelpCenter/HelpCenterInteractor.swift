@@ -12,45 +12,84 @@ import UIKit
 protocol HelpCenterInteractorProtocol {
     var presenter: HelpCenterInteractorResponseProtocol? { get set }
     var webSocketDelegate: WebSocketInteractorDelegate? { get set }
-    
+    var response: [HelpCenterResponseModel] { get set }
+
     // Presenter -> Interactor
+    
     /// Creates a bubble view for user messages
     func createUserSendBubbleView(bubbleMessage: String)
+    
     /// Connects to the WebSocket using the provided URL
     func connectWebSocket(socketURL: String)
+    
     /// Disconnects from the WebSocket
     func disconnectWebSocket()
+    
     /// Sends a message through the WebSocket
     func sendMessage(_ response: HelpCenterResponseModel)
+    
     /// Fetches details for a specific step
     func getHelpCenterStepDetails(stepId: HelpCenterChatStepTypes)
+    
     /// Calculates the height of a cell based on its content
     func calculateCellHeight(_ response: HelpCenterResponseModel) -> CGFloat
+    
     /// Returns the height for the table view header
     func getTableViewHeightForHeader() -> CGFloat
+   
     /// Dequeues a reusable cell based on the response
     func dequeueReusableCell(_ response: HelpCenterResponseModel, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
+
+    /// Removes all items from the data source, clearing the current chat or responses.
+    func removeAllItems()
+    
+    /// Retrieves the current response items from the data source.
+    /// - Returns: An array of `HelpCenterResponseModel` representing the responses in the chat.
+    func getResponseItems() -> [HelpCenterResponseModel]
+    
+    /// Notifies the presenter that the view has been loaded, allowing it to perform any necessary setup or data retrieval.
+    func viewDidLoad()
+    
+    /// Removes all items and starts a new chat session, effectively resetting the current conversation.
+    func removeAllItemsAndCreateNewChat()
 }
 
 // MARK: - HelpCenterInteractorResponseProtocol
 protocol HelpCenterInteractorResponseProtocol {
     // Interactor -> Presenter
+    
     /// Notifies the presenter that the WebSocket is connected
     func didSocketConnected()
+    
     /// Notifies the presenter that the WebSocket is disconnected
     func didSocketDisconnected()
+    
     /// Notifies the presenter of the retrieved step details
-    func didGetStepDetails(stepDetails: HelpCenterResponseModel)
+    func didTableViewReloadData()
+    
     /// Notifies the presenter to show an end conversation alert
     func didShowEndConversationAlert()
+    
+    /// Configures the user interface elements of the view, setting up visual components and layout as needed.
+    func configureUI()
+    
+    /// Registers the necessary cells for the table view, allowing it to dequeue and display them appropriately.
+    func configureRegisterCells()
+    
+    /// Notifies that the table view has scrolled to the bottom, which may trigger actions like loading more content or updating the UI.
+    func didTableViewScrollToBottom()
+    
+    func didShowErrorMessage(error: Error)
 }
 
 // MARK: - HelpCenterInteractor
 final class HelpCenterInteractor: HelpCenterInteractorProtocol {
+
     // MARK: - Properties
     var webSocketDelegate: WebSocketInteractorDelegate?
     var presenter: HelpCenterInteractorResponseProtocol?
-    
+    var response: [HelpCenterResponseModel] = []
+
     // MARK: - WebSocket Management
     func connectWebSocket(socketURL: String) {
         // Set the delegate and connect to the WebSocket
@@ -86,7 +125,8 @@ final class HelpCenterInteractor: HelpCenterInteractorProtocol {
     func createUserSendBubbleView(bubbleMessage: String) {
         // Creates a user message bubble and informs the presenter
         let bubbleData = createUserMessageBubbleData(bubbleMessage: bubbleMessage)
-        presenter?.didGetStepDetails(stepDetails: bubbleData)
+        response.append(bubbleData)
+        presenter?.didTableViewReloadData()
     }
     
     // MARK: - Cell Management
@@ -147,17 +187,41 @@ final class HelpCenterInteractor: HelpCenterInteractorProtocol {
         // Returns zero for the header height
         return .zero
     }
+    
+    func removeAllItems() {
+        response.removeAll()
+        presenter?.didTableViewReloadData()
+    }
+    
+    func getResponseItems() -> [HelpCenterResponseModel] {
+        return response
+    }
+    
+    func viewDidLoad() {
+        presenter?.configureUI()
+        presenter?.configureRegisterCells()
+        connectWebSocket(socketURL: "wss://echo.websocket.org")
+        getHelpCenterStepDetails(stepId: .step1)
+    }
+    
+    func removeAllItemsAndCreateNewChat() {
+        removeAllItems()
+        getHelpCenterStepDetails(stepId: .step1)
+    }
+    
 }
 
 // MARK: - WebSocketInteractorDelegate
 extension HelpCenterInteractor: WebSocketInteractorDelegate {
     func didReceiveMessage(_ message: HelpCenterResponseModel) {
         // Notify presenter about new messages received via WebSocket
-        presenter?.didGetStepDetails(stepDetails: message)
+        response.append(message)
+        presenter?.didTableViewReloadData()
+        presenter?.didTableViewScrollToBottom()
     }
     
     func didFailWithError(_ error: Error) {
-        // Handle error if needed (e.g., log or notify the presenter)
+        presenter?.didShowErrorMessage(error: error)
     }
 }
 
@@ -218,10 +282,11 @@ private extension HelpCenterInteractor {
             (IconAndTitleView.contentHStackViewItemSpacing) +
             (IconAndTitleView.iconImageViewFrame)
             
-            let frameWidth = screenWidth - totalFrame
+            let labelFrameWidth = screenWidth - totalFrame
+            
             // Calculate height based on text size
             cellHeight += text.heightWithConstrainedWidth(
-                width: frameWidth,
+                width: labelFrameWidth,
                 font: IconAndTitleView.labelFont
             )
             

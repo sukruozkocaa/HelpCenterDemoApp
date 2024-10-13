@@ -13,68 +13,66 @@ import UIKit
 protocol HelpCenterPresenterProtocol: AnyObject {
     /// Reference to the View
     var view: HelpCenterViewProtocol? { get set }
+    
     /// Reference to the Interactor
     var interactor: HelpCenterInteractorProtocol? { get set }
+    
     /// Reference to the Router
     var router: HelpCenterRouterProtocol? { get set }
-    /// Array to hold the response models
-    var response: [HelpCenterResponseModel] { get set }
     
     // MARK: - View -> Presenter Methods
+    
     /// Called when the view is loaded.
     func viewDidLoad()
-    /// Loads the user interface.
-    func loadUI()
-    /// Registers table view cells.
-    func registerTableViewCells()
-    /// Connects to the WebSocket.
-    func connectWebSocket()
+    
     /// Disconnects from the WebSocket.
     func disconnectWebSocket()
+    
     /// Sends a message through the WebSocket.
     func sendSocketMessage(stepId: HelpCenterChatStepTypes)
+    
     /// Sends a user bubble message.
     func sendUserBubble(bubbleMessage: String)
+    
     /// Clears all responses.
     func clearResponses()
+    
     /// Removes the current conversation.
     func removeConversation()
+    
     /// Returns the height for the header in the table view.
     func headerHeight() -> CGFloat
+    
     /// Retrieves response data.
     func responseData() -> [HelpCenterResponseModel]?
+    
     /// Calculates the cell height for a given response.
     func calculateCellHeight(response: HelpCenterResponseModel) -> CGFloat
+   
     /// Dequeues a reusable cell for the table view.
     func dequeueReusableCell(_ response: HelpCenterResponseModel, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
 }
 
 // MARK: - HelpCenterPresenter
-/// The presenter that conforms to HelpCenterPresenterProtocol and handles presentation logic.
 final class HelpCenterPresenter: HelpCenterPresenterProtocol {
     // MARK: - Properties
-    var view: HelpCenterViewProtocol? // Reference to the view
-    var interactor: HelpCenterInteractorProtocol? // Reference to the interactor
-    var router: HelpCenterRouterProtocol? // Reference to the router
-    var response: [HelpCenterResponseModel] = [] // Array holding Help Center responses
+    
+    // Reference to the view
+    var view: HelpCenterViewProtocol?
+    // Reference to the interactor
+    var interactor: HelpCenterInteractorProtocol?
+    // Reference to the router
+    var router: HelpCenterRouterProtocol?
 
     // MARK: - Lifecycle Methods
     /// Method called when the view is loaded. Sets up UI and interactions.
     func viewDidLoad() {
-        loadUI() // Load the user interface
-        registerTableViewCells() // Register table view cells
-        connectWebSocket() // Establish a WebSocket connection
-        interactor?.getHelpCenterStepDetails(stepId: .step1) // Request initial step details
+        interactor?.viewDidLoad()
     }
     
     /// Sends a message through the WebSocket.
     func sendSocketMessage(stepId: HelpCenterChatStepTypes) {
-        self.interactor?.getHelpCenterStepDetails(stepId: stepId)
-    }
-    
-    /// Connects to the WebSocket.
-    func connectWebSocket() {
-        interactor?.connectWebSocket(socketURL: "wss://echo.websocket.org")
+        interactor?.getHelpCenterStepDetails(stepId: stepId)
     }
     
     /// Disconnects from the WebSocket.
@@ -88,16 +86,6 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
         return height
     }
     
-    /// Registers the necessary table view cells.
-    func registerTableViewCells() {
-        view?.registerTableViewCells()
-    }
-    
-    /// Loads the user interface elements.
-    func loadUI() {
-        view?.loadUI()
-    }
-    
     /// Sends a user bubble message to the interactor.
     func sendUserBubble(bubbleMessage: String) {
         interactor?.createUserSendBubbleView(bubbleMessage: bubbleMessage)
@@ -105,12 +93,14 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
     
     /// Retrieves the current response data.
     func responseData() -> [HelpCenterResponseModel]? {
-        return response
+        let responseData = interactor?.getResponseItems()
+        return responseData
     }
     
     /// Returns the height for the header in the table view.
     func headerHeight() -> CGFloat {
-        return interactor?.getTableViewHeightForHeader() ?? .zero
+        let haderHeight = interactor?.getTableViewHeightForHeader() ?? .zero
+        return haderHeight
     }
     
     /// Dequeues a reusable cell for the table view.
@@ -121,29 +111,28 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
     
     /// Clears all responses and starts a new conversation.
     func clearResponses() {
-        response.removeAll(keepingCapacity: true)
-        view?.startNewConversation()
+        interactor?.removeAllItemsAndCreateNewChat()
     }
     
     /// Removes the current conversation and disconnects the WebSocket.
     func removeConversation() {
         interactor?.disconnectWebSocket()
-        response.removeAll()
+        interactor?.removeAllItems()
     }
 }
 
 // MARK: - HelpCenterInteractorResponseProtocol
 /// Extension to handle responses from the interactor.
 extension HelpCenterPresenter: HelpCenterInteractorResponseProtocol {
+
     /// Displays an alert when the conversation ends.
     func didShowEndConversationAlert() {
         view?.showEndConversationAlert()
     }
     
     /// Handles the received step details and updates the response.
-    func didGetStepDetails(stepDetails: HelpCenterResponseModel) {
-        response.append(stepDetails)
-        view?.displayMessage(stepDetails)
+    func didTableViewReloadData() {
+        view?.reloadTableView()
     }
     
     /// Called when the socket connection is established.
@@ -156,5 +145,24 @@ extension HelpCenterPresenter: HelpCenterInteractorResponseProtocol {
     func didSocketDisconnected() {
         view?.socketConnectionStatus(isConnected: false)
         print("Socket Disconnected")
+    }
+    
+    /// Loads the user interface elements.
+    func configureUI() {
+        view?.loadUI()
+    }
+    
+    /// Registers the necessary table view cells.
+    func configureRegisterCells() {
+        view?.registerTableViewCells()
+    }
+    
+    /// Scroll To Bottom table view.
+    func didTableViewScrollToBottom() {
+        view?.scrollToBottomTableView()
+    }
+    
+    func didShowErrorMessage(error: Error) {
+        print("\(error.localizedDescription)")
     }
 }

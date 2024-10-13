@@ -33,7 +33,8 @@
 		713257682CBB087300FB727B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257672CBB087300FB727B /* String+Extensions.swift */; };
 		713257722CBBC67E00FB727B /* UIAlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257712CBBC67E00FB727B /* UIAlertHelper.swift */; };
 		713257782CBBE0F300FB727B /* HelpCenterChatStepTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257772CBBE0F300FB727B /* HelpCenterChatStepTypes.swift */; };
-		7132577A2CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257792CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift */; };
+		7132577A2CBBFA9D00FB727B /* HelpCenterNavigationBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257792CBBFA9D00FB727B /* HelpCenterNavigationBarContentView.swift */; };
+		7132577D2CBC043200FB727B /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132577C2CBC043200FB727B /* WelcomeViewController.swift */; };
 		71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA482CB9D26600823B95 /* AppDelegate.swift */; };
 		71D6FA4B2CB9D26600823B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */; };
 		71D6FA522CB9D26700823B95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D6FA512CB9D26700823B95 /* Assets.xcassets */; };
@@ -86,7 +87,8 @@
 		713257672CBB087300FB727B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		713257712CBBC67E00FB727B /* UIAlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertHelper.swift; sourceTree = "<group>"; };
 		713257772CBBE0F300FB727B /* HelpCenterChatStepTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterChatStepTypes.swift; sourceTree = "<group>"; };
-		713257792CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterNavigationContentView.swift; sourceTree = "<group>"; };
+		713257792CBBFA9D00FB727B /* HelpCenterNavigationBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterNavigationBarContentView.swift; sourceTree = "<group>"; };
+		7132577C2CBC043200FB727B /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		71D6FA452CB9D26600823B95 /* HelpCenterDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpCenterDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D6FA482CB9D26600823B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,7 +131,8 @@
 		7111C8852CB9D690003C9C59 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				7111C88B2CB9D6CA003C9C59 /* HelpCenterPage */,
+				7132577B2CBC01E100FB727B /* Welcome */,
+				7111C88B2CB9D6CA003C9C59 /* HelpCenter */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -140,12 +143,12 @@
 				7111C8982CBA9660003C9C59 /* Cells  */,
 				7111C88C2CB9D7D6003C9C59 /* HelpCenterViewController.swift */,
 				7111C8942CBA7352003C9C59 /* HelpCenterViewProtocol.swift */,
-				713257792CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift */,
+				713257792CBBFA9D00FB727B /* HelpCenterNavigationBarContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		7111C88B2CB9D6CA003C9C59 /* HelpCenterPage */ = {
+		7111C88B2CB9D6CA003C9C59 /* HelpCenter */ = {
 			isa = PBXGroup;
 			children = (
 				7111C8872CB9D6A3003C9C59 /* View */,
@@ -155,7 +158,7 @@
 				713257602CBAD96A00FB727B /* HelpCenterResponseModel.swift */,
 				713257772CBBE0F300FB727B /* HelpCenterChatStepTypes.swift */,
 			);
-			path = HelpCenterPage;
+			path = HelpCenter;
 			sourceTree = "<group>";
 		};
 		7111C8982CBA9660003C9C59 /* Cells  */ = {
@@ -245,6 +248,14 @@
 				713257622CBADC3900FB727B /* WebSocketManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		7132577B2CBC01E100FB727B /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				7132577C2CBC043200FB727B /* WelcomeViewController.swift */,
+			);
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		71D6FA3C2CB9D26600823B95 = {
@@ -434,7 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7132577A2CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift in Sources */,
+				7132577A2CBBFA9D00FB727B /* HelpCenterNavigationBarContentView.swift in Sources */,
 				713257662CBAF20C00FB727B /* HelpCenterStepManager.swift in Sources */,
 				7132574D2CBAACEB00FB727B /* HelpCenterChatButtonListContentItemCell.swift in Sources */,
 				7111C8932CB9E4AF003C9C59 /* HelpCenterPresenter.swift in Sources */,
@@ -447,6 +458,7 @@
 				7132575D2CBAD08600FB727B /* HelpCenterChatClientBubbleCell.swift in Sources */,
 				713257472CBAA5D400FB727B /* UILabel+Extensions .swift in Sources */,
 				713257502CBAC0C600FB727B /* HelpCenterChatImageCell.swift in Sources */,
+				7132577D2CBC043200FB727B /* WelcomeViewController.swift in Sources */,
 				71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */,
 				7111C8A62CBAA1D6003C9C59 /* UIView+Extensions .swift in Sources */,
 				713257682CBB087300FB727B /* String+Extensions.swift in Sources */,

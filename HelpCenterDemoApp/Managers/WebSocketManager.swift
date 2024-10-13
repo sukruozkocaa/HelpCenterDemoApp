@@ -42,14 +42,15 @@ final class WebSocketManager {
     func disconnectWebSocket() {
         webSocketTask?.cancel(with: .goingAway, reason: nil)
         webSocketTask = nil
-        urlSession = nil // Clean up session
+        urlSession = nil
     }
 
     // MARK: - Send Message
     func sendMessage(_ message: HelpCenterResponseModel) {
         do {
             let jsonData = try JSONEncoder().encode(message)
-            let jsonString = String(data: jsonData, encoding: .utf8)!
+            
+            guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
             let webSocketMessage = URLSessionWebSocketTask.Message.string(jsonString)
             
             webSocketTask?.send(webSocketMessage) { [weak self] error in

@@ -50,10 +50,7 @@ final class HelpCenterRouter: HelpCenterRouterProtocol {
         
         // The interactor communicates with the presenter to return data and results.
         interactor.presenter = presenter
-                
-        // Set the view's title, which will be displayed in the navigation bar
-        view.title = "Canlı Destek Merkezi"
-        
+                        
         // Create a UINavigationController with the view as its rootViewController.
         // This allows for navigation features like back and forth navigation.
         let navController = UINavigationController(rootViewController: view)

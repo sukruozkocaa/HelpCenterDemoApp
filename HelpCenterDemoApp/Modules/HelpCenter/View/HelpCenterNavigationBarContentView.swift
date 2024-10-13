@@ -1,5 +1,5 @@
 //
-//  HelpCenterNavigationContentView.swift
+//  HelpCenterNavigationBarContentView.swift
 //  HelpCenterDemoApp
 //
 //  Created by Şükrü on 13.10.2024.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-// MARK: - HelpCenterNavigationContentView
-final class HelpCenterNavigationContentView: UIView {
+// MARK: - HelpCenterNavigationBarContentView
+final class HelpCenterNavigationBarContentView: UIView {
     
     // MARK: - Views
     private lazy var iconImageView: UIImageView = {
@@ -70,7 +70,7 @@ final class HelpCenterNavigationContentView: UIView {
 }
 
 // MARK: - Setup UI
-private extension HelpCenterNavigationContentView {
+private extension HelpCenterNavigationBarContentView {
     final func setupUI() {
         setupViewUI()
         setupContentHStackView()
@@ -105,7 +105,7 @@ private extension HelpCenterNavigationContentView {
 }
 
 // MARK: - Configure
-extension HelpCenterNavigationContentView {
+extension HelpCenterNavigationBarContentView {
     final func configure(isConnectWebSocket: Bool) {
         let borderColor: UIColor = isConnectWebSocket ? .init(hexString: "24FF00"): .init(hexString: "#BFBFBF")
         iconImageView.setBorder(borderColor: borderColor)
