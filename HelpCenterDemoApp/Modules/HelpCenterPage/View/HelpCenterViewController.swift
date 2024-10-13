@@ -14,8 +14,9 @@ final class HelpCenterViewController: UIViewController {
     private lazy var chatContentTableView: UITableView = {
         let tableView = UITableView(
             frame: .zero,
-            style: .plain
+            style: .grouped
         )
+        tableView.contentInset.bottom = 30.0
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.delegate = self
@@ -90,7 +91,7 @@ extension HelpCenterViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section != .zero else { return .zero}
-        return presenter?.heightForHeaderInSection() ?? .zero
+        return presenter?.headerHeight() ?? .zero
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -124,7 +125,7 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
             self.presenter?.removeConversation()
         } startNewConversationAction: { [weak self] in
             guard let self else { return }
-            self.presenter?.removeAllResponseItems()
+            self.presenter?.clearResponses()
         }
     }
     
@@ -140,8 +141,8 @@ extension HelpCenterViewController: HelpCenterChatButtonListCellDelegate {
     func helpCenterChatButtonListCell(didTapButton button: HelpCenterContentButtonModel) {
         guard let stepId = button.action,
                 let bubbleMessage = button.label else { return }
-        
-        presenter?.createUserSendBubble(bubbleMessage: bubbleMessage)
+
+        presenter?.sendUserBubble(bubbleMessage: bubbleMessage)
         presenter?.sendSocketMessage(stepId: stepId)
     }
 }

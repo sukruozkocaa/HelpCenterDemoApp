@@ -21,6 +21,7 @@ struct HelpCenterResponseModel: Codable {
     let type: StepTypes?
     let content: ContentType?
     let action: HelpCenterChatStepTypes?
+    var isSelected: Bool?
 }
 
 // MARK: - HelpCenterContentModel

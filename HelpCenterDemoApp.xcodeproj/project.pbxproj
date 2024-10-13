@@ -33,6 +33,7 @@
 		713257682CBB087300FB727B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257672CBB087300FB727B /* String+Extensions.swift */; };
 		713257722CBBC67E00FB727B /* UIAlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257712CBBC67E00FB727B /* UIAlertHelper.swift */; };
 		713257782CBBE0F300FB727B /* HelpCenterChatStepTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257772CBBE0F300FB727B /* HelpCenterChatStepTypes.swift */; };
+		7132577A2CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713257792CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift */; };
 		71D6FA492CB9D26600823B95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA482CB9D26600823B95 /* AppDelegate.swift */; };
 		71D6FA4B2CB9D26600823B95 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */; };
 		71D6FA522CB9D26700823B95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D6FA512CB9D26700823B95 /* Assets.xcassets */; };
@@ -85,6 +86,7 @@
 		713257672CBB087300FB727B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		713257712CBBC67E00FB727B /* UIAlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertHelper.swift; sourceTree = "<group>"; };
 		713257772CBBE0F300FB727B /* HelpCenterChatStepTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterChatStepTypes.swift; sourceTree = "<group>"; };
+		713257792CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterNavigationContentView.swift; sourceTree = "<group>"; };
 		71D6FA452CB9D26600823B95 /* HelpCenterDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelpCenterDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D6FA482CB9D26600823B95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D6FA4A2CB9D26600823B95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				7111C8982CBA9660003C9C59 /* Cells  */,
 				7111C88C2CB9D7D6003C9C59 /* HelpCenterViewController.swift */,
 				7111C8942CBA7352003C9C59 /* HelpCenterViewProtocol.swift */,
+				713257792CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7132577A2CBBFA9D00FB727B /* HelpCenterNavigationContentView.swift in Sources */,
 				713257662CBAF20C00FB727B /* HelpCenterStepManager.swift in Sources */,
 				7132574D2CBAACEB00FB727B /* HelpCenterChatButtonListContentItemCell.swift in Sources */,
 				7111C8932CB9E4AF003C9C59 /* HelpCenterPresenter.swift in Sources */,

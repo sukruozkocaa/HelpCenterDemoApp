@@ -31,7 +31,7 @@ final class IconAndTitleView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.setFont(size: 13.0, weight: .semibold)
+        label.font = IconAndTitleView.labelFont
         label.textAlignment = .left
         label.numberOfLines = .zero
         label.labelTextColor = .black
@@ -44,6 +44,7 @@ final class IconAndTitleView: UIView {
     static let contentHStackViewXMargin: CGFloat = 10.0
     static let contentHStackViewTopMargin: CGFloat = 10.0
     static let contentHStackViewItemSpacing: CGFloat = 9.0
+    static let labelFont: UIFont = .systemFont(ofSize: 13.0, weight: .semibold)
     
     // MARK: - Init
     init() {

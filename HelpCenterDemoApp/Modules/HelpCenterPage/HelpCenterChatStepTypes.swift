@@ -21,6 +21,7 @@ enum HelpCenterChatStepTypes {
     case end_conversation
 }
 
+// MARK: - Step Detail
 extension HelpCenterChatStepTypes: Codable {
     var stepDetail: HelpCenterResponseModel? {
         switch self {
@@ -41,7 +42,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .button,
                 content: content,
-                action: .await_user_choice
+                action: .await_user_choice, isSelected: false
             )
             
             return stepDetailResponse
@@ -61,7 +62,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .button,
                 content: content,
-                action: .await_user_choice
+                action: .await_user_choice, isSelected: false
             )
             
             return stepDetailResponse
@@ -72,7 +73,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .text,
                 content: content,
-                action: .end_conversation
+                action: .end_conversation, isSelected: false
             )
             return stepDetailResponse
         case .step4:
@@ -85,7 +86,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .image,
                 content: content,
-                action: .end_conversation
+                action: .end_conversation, isSelected: false
             )
             
             return stepDetailResponse
@@ -95,7 +96,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .text,
                 content: content,
-                action: .end_conversation
+                action: .end_conversation, isSelected: false
             )
             
             return stepDetailResponse
@@ -105,7 +106,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .text,
                 content: content,
-                action: .end_conversation
+                action: .end_conversation, isSelected: false
             )
             
             return stepDetailResponse
@@ -124,7 +125,7 @@ extension HelpCenterChatStepTypes: Codable {
                 step: self,
                 type: .button,
                 content: content,
-                action: .await_user_choice
+                action: .await_user_choice, isSelected: false
             )
             
             return stepDetailResponse
@@ -132,7 +133,7 @@ extension HelpCenterChatStepTypes: Codable {
         case .show_guide: break
         case .end_conversation: break
         }
-
+        
         return nil
     }
 }
