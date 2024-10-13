@@ -29,7 +29,7 @@ final class WebSocketManager {
 
     // MARK: - Connect WebSocket
     func connectWebSocket(socketURL: String) {
-        guard let url = URL(string: "wss://echo.websocket.org") else { return }
+        guard let url = URL(string: socketURL) else { return }
         urlSession = URLSession(configuration: .default) // Keep URLSession alive
         webSocketTask = urlSession?.webSocketTask(with: url)
         webSocketTask?.resume()

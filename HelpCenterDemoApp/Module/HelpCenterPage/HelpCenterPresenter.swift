@@ -13,18 +13,21 @@ protocol HelpCenterPresenterProtocol: AnyObject {
     var view: HelpCenterViewProtocol? { get set }
     var interactor: HelpCenterInteractorProtocol? { get set }
     var router: HelpCenterRouterProtocol? { get set }
+    var response: [HelpCenterResponseModel] { get set }
     
     // View -> Presenter
     func viewDidLoad()
     func loadUI()
     func registerTableViewCells()
-    
     func connectWebSocket()
     func disconnectWebSocket()
     func sendSocketMessage(stepId: HelpCenterStepTypes)
     func calculateCellHeight(response: HelpCenterResponseModel) -> CGFloat
     func createUserSendBubble(bubbleMessage: String)
     func heightForHeaderInSection() -> CGFloat
+    func removeAllResponseItems()
+    func removeConversation()
+    func getResponseData() -> [HelpCenterResponseModel]?
     func dequeueReusableCell(_ response: HelpCenterResponseModel, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
 }
 
@@ -35,6 +38,7 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
     var view: HelpCenterViewProtocol?
     var interactor: HelpCenterInteractorProtocol?
     var router: HelpCenterRouterProtocol?
+    var response: [HelpCenterResponseModel] = []
 
     func viewDidLoad() {
         loadUI()
@@ -72,6 +76,10 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
         interactor?.createUserSendBubbleView(bubbleMessage: bubbleMessage)
     }
     
+    func getResponseData() -> [HelpCenterResponseModel]? {
+        return response
+    }
+    
     func heightForHeaderInSection() -> CGFloat {
         return 10.0
     }
@@ -81,11 +89,25 @@ final class HelpCenterPresenter: HelpCenterPresenterProtocol {
         return cell
     }
     
+    func removeAllResponseItems() {
+        response.removeAll(keepingCapacity: true)
+        view?.startNewConversation()
+    }
+    
+    func removeConversation() {
+        interactor?.disconnectWebSocket()
+        response.removeAll()
+    }
 }
 
 // MARK: - HelpCenterInteractorResponseProtocol
 extension HelpCenterPresenter: HelpCenterInteractorResponseProtocol {
+    func didShowEndConversationAlert() {
+        view?.showEndConversationAlert()
+    }
+    
     func didGetStepDetails(stepDetails: HelpCenterResponseModel) {
+        response.append(stepDetails)
         view?.displayMessage(stepDetails)
     }
     

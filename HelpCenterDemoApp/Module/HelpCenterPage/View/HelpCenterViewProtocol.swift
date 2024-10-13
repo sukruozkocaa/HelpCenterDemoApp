@@ -15,4 +15,6 @@ protocol HelpCenterViewProtocol: AnyObject {
     func displayMessage(_ message: HelpCenterResponseModel)
     func registerTableViewCells()
     func loadUI()
+    func showEndConversationAlert() 
+    func startNewConversation()
 }

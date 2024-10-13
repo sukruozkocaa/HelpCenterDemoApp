@@ -13,7 +13,7 @@ protocol HelpCenterInteractorProtocol {
     var presenter: HelpCenterInteractorResponseProtocol? { get set }
     var interactor: HelpCenterInteractorProtocol? { get set }
     var webSocketDelegate: WebSocketInteractorDelegate? { get set }
-
+    
     // Presenter -> Interactor
     func createUserSendBubbleView(bubbleMessage: String)
     func connectWebSocket(socketURL: String)
@@ -30,6 +30,7 @@ protocol HelpCenterInteractorResponseProtocol {
     func didSocketConnected()
     func didSocketDisconnected()
     func didGetStepDetails(stepDetails: HelpCenterResponseModel)
+    func didShowEndConversationAlert()
 }
 
 // MARK: - HelpCenterInteractorProtocol
@@ -107,8 +108,16 @@ extension HelpCenterInteractor: WebSocketInteractorDelegate {
 // MARK: - HelpCenterOptionsListCellDelegate
 extension HelpCenterInteractor: HelpCenterOptionsListCellDelegate {
     func helpCenterOptionsListCell(didTapButton button: HelpCenterContentButtonModel) {
-        createUserSendBubbleView(bubbleMessage: button.label ?? "")
-        getHelpCenterStepDetails(stepId: button.action ?? .step1)
+        guard let bubbleMessage = button.label,
+              let stepId = button.action else { return }
+        
+        guard button.action != .end_conversation else {
+            presenter?.didShowEndConversationAlert()
+            return
+        }
+        
+        createUserSendBubbleView(bubbleMessage: bubbleMessage)
+        getHelpCenterStepDetails(stepId: stepId)
     }
 }
 

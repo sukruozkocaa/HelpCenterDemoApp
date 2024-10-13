@@ -26,14 +26,10 @@ final class HelpCenterViewController: UIViewController {
     
     // MARK: - Public Variables
     var presenter: HelpCenterPresenterProtocol?
-    
-    // MARK: - Private Variables
-    private var response: [HelpCenterResponseModel] = []
-    
+        
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         presenter?.viewDidLoad()
     }
 }
@@ -69,7 +65,7 @@ extension HelpCenterViewController: UITableViewDelegate {}
 // MARK: - UITableViewDataSource
 extension HelpCenterViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return response.count
+        return presenter?.response.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,16 +73,18 @@ extension HelpCenterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = response[indexPath.section]
-        guard let cell = presenter?.dequeueReusableCell(data, tableView: tableView, indexPath: indexPath) else {
+        guard let data = presenter?.response[indexPath.section],
+              let cell = presenter?.dequeueReusableCell(data, tableView: tableView, indexPath: indexPath) else {
             return UITableViewCell()
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let data = response[indexPath.section]
+        guard let data = presenter?.response[indexPath.section] else { return .zero }
         let height = presenter?.calculateCellHeight(response: data)
+        
         return height ?? .zero
     }
     
@@ -109,7 +107,6 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
     }
     
     func displayMessage(_ message: HelpCenterResponseModel) {
-        self.response.append(message)
         chatContentTableView.reloadTableView()
         chatContentTableView.scrollToBottom()
     }
@@ -120,6 +117,22 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
         chatContentTableView.register(cell: HelpCenterInfoCell.self)
         chatContentTableView.register(cell: HelpCenterUserTextBubbleCell.self)
     }
+    
+    func showEndConversationAlert() {
+        UIAlertHelper.shared.showEndConversationAlert(in: self) { [weak self] in
+            guard let self else { return }
+            self.presenter?.removeConversation()
+        } startNewConversationAction: { [weak self] in
+            guard let self else { return }
+            self.presenter?.removeAllResponseItems()
+        }
+    }
+    
+    func startNewConversation() {
+        self.chatContentTableView.reloadTableView()
+        self.presenter?.sendSocketMessage(stepId: .step1)
+    }
+    
 }
 
 // MARK: - HelpCenterOptionsListCellDelegate
