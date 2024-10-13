@@ -175,3 +175,10 @@ extension HelpCenterViewController: HelpCenterChatButtonListCellDelegate {
         presenter?.sendSocketMessage(stepId: stepId)
     }
 }
+
+// MARK: - HelpCenterChatTextCellDelegate
+extension HelpCenterViewController: HelpCenterChatTextCellDelegate {
+    func helpCenterChatTextCell(didTapEndConversation cell: HelpCenterChatTextCell) {
+        self.showEndConversationAlert()
+    }
+}

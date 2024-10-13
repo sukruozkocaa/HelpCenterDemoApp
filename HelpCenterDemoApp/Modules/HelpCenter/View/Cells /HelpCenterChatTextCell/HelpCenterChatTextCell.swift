@@ -7,6 +7,11 @@
 
 import UIKit
 
+// MARK: - HelpCenterChatTextCellDelegate
+protocol HelpCenterChatTextCellDelegate: AnyObject {
+    func helpCenterChatTextCell(didTapEndConversation cell: HelpCenterChatTextCell)
+}
+
 // MARK: - HelpCenterChatTextCell
 final class HelpCenterChatTextCell: UITableViewCell {
     
@@ -40,11 +45,13 @@ final class HelpCenterChatTextCell: UITableViewCell {
         )
         button.titleLabel?.setFont(size: 13.0, weight: .semibold)
         button.cornerRadius = actionButtonCornerRadius
+        button.addTarget(self, action: #selector(tapToEndConversation), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    // MARK: - Variables
+        
+    // MARK: - Delegates
+    weak var delegate: HelpCenterChatTextCellDelegate?
     
     // MARK: - Constants
     private let actionButtonCornerRadius: CGFloat = 10.0
@@ -117,5 +124,13 @@ extension HelpCenterChatTextCell {
         if case let .text(infoText) = item.content {
             iconAndTitleView.configure(infoText: infoText)
         }
+    }
+}
+
+// MARK: - Tap To Handlers
+@objc
+private extension HelpCenterChatTextCell {
+    final func tapToEndConversation() {
+        delegate?.helpCenterChatTextCell(didTapEndConversation: self)
     }
 }

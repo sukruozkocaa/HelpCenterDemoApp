@@ -137,12 +137,13 @@ final class HelpCenterInteractor: HelpCenterInteractorProtocol {
         case .button:
             // Dequeue a button cell and configure it
             let cell = tableView.dequeueReusableCell(for: HelpCenterChatButtonListCell.self, for: indexPath)
-            cell.configure(item: response)
             cell.delegate = self
+            cell.configure(item: response)
             return cell
         case .text:
             // Dequeue a text cell and configure it
             let cell = tableView.dequeueReusableCell(for: HelpCenterChatTextCell.self, for: indexPath)
+            cell.delegate = self
             cell.configure(item: response)
             return cell
         case .image:
@@ -239,6 +240,13 @@ extension HelpCenterInteractor: HelpCenterChatButtonListCellDelegate {
             createUserSendBubbleView(bubbleMessage: bubbleMessage)
             getHelpCenterStepDetails(stepId: stepId)
         }
+    }
+}
+
+// MARK: - HelpCenterChatTextCellDelegate
+extension HelpCenterInteractor: HelpCenterChatTextCellDelegate {
+    func helpCenterChatTextCell(didTapEndConversation cell: HelpCenterChatTextCell) {
+        presenter?.didShowEndConversationAlert()
     }
 }
 

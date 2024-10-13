@@ -400,7 +400,6 @@
 			);
 			mainGroup = 71D6FA3C2CB9D26600823B95;
 			packageReferences = (
-				7111C89E2CBA97A3003C9C59 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				713257532CBAC34800FB727B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 71D6FA462CB9D26600823B95 /* Products */;
@@ -814,14 +813,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7111C89E2CBA97A3003C9C59 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.57.0;
-			};
-		};
 		713257532CBAC34800FB727B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
