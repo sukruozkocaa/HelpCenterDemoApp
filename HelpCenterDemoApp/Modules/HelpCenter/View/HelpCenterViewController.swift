@@ -68,7 +68,6 @@ private extension HelpCenterViewController {
     final func setupChatContentTableView() {
         view.addSubview(chatContentTableView)
         
-        // TODO: - Create UIView fill superview extension.
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             chatContentTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),

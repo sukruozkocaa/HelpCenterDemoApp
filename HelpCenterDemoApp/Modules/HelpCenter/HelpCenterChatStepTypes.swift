@@ -78,7 +78,6 @@ extension HelpCenterChatStepTypes: Codable {
             return stepDetailResponse
         case .step4:
             
-            // TODO: Add Image URL
             let content = ContentType.text(
                 "https://media.licdn.com/dms/image/v2/D4D22AQE091hLQw1pUQ/feedshare-shrink_1280/feedshare-shrink_1280/0/1703068677936?e=1731542400&v=beta&t=gRS0cWOIPOPakhFI1u7hqSpZLAPG57kXZRMu5yrK5Og"
             )

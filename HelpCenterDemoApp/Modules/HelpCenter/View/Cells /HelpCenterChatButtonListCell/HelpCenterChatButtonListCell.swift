@@ -68,8 +68,6 @@ private extension HelpCenterChatButtonListCell {
     final func setupTitleView() {
         contentView.addSubview(titleView)
         
-        // TODO: - Calculate to titleView height in label text height
-        // TODO: - Constraint fill superview extension apply
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleView.heightAnchor.constraint(equalToConstant: HelpCenterChatButtonListCell.titleViewHeight),
