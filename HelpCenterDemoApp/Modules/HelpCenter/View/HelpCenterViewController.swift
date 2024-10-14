@@ -40,31 +40,26 @@ final class HelpCenterViewController: UIViewController {
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        /// Called after the view has been loaded into memory. Triggers the presenter to perform any setup.
         presenter?.viewDidLoad()
     }
     
     deinit {
-        /// Deinitializer that disconnects the WebSocket when the view controller is deallocated.
         presenter?.disconnectWebSocket()
     }
 }
 
 // MARK: - Setup UI
 private extension HelpCenterViewController {
-    /// Sets up the UI components of the view.
     final func setupUI() {
         setupViewUI()
         setupChatContentTableView()
     }
     
-    /// Sets up the general view UI including background color and navigation item.
     final func setupViewUI() {
         view.backgroundColor = .white
         navigationItem.titleView = navigationBarContentView
     }
     
-    /// Configures the chat content table view's layout constraints.
     final func setupChatContentTableView() {
         view.addSubview(chatContentTableView)
         
@@ -121,12 +116,10 @@ extension HelpCenterViewController: UITableViewDataSource {
 
 // MARK: - HelpCenterViewProtocol
 extension HelpCenterViewController: HelpCenterViewProtocol {
-    /// Initializes the UI components when the view is loaded.
     func loadUI() {
         setupUI()
     }
     
-    /// Registers the custom cells used in the table view.
     func registerTableViewCells() {
         chatContentTableView.register(cell: HelpCenterChatButtonListCell.self)
         chatContentTableView.register(cell: HelpCenterChatImageCell.self)
@@ -134,7 +127,6 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
         chatContentTableView.register(cell: HelpCenterChatClientBubbleCell.self)
     }
     
-    /// Displays an alert to confirm whether to end the conversation.
     func showEndConversationAlert() {
         UIAlertHelper.shared.showEndConversationAlert(in: self) { [weak self] in
             guard let self else { return }
@@ -145,18 +137,14 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
         }
     }
 
-    /// Updates the navigation bar based on the WebSocket connection status.
-    /// - Parameter isConnected: A boolean indicating whether the WebSocket is connected.
     func socketConnectionStatus(isConnected: Bool) {
         navigationBarContentView.configure(isConnectWebSocket: isConnected)
     }
     
-    /// Reloads the table view to reflect any changes in data.
     func reloadTableView() {
         chatContentTableView.reloadTableView()
     }
     
-    /// Scrolls the table view to the bottom after new messages are added.
     func scrollToBottomTableView() {
         chatContentTableView.scrollToBottom()
     }
@@ -165,7 +153,6 @@ extension HelpCenterViewController: HelpCenterViewProtocol {
 
 // MARK: - HelpCenterOptionsListCellDelegate
 extension HelpCenterViewController: HelpCenterChatButtonListCellDelegate {
-    /// Handles the button tap action in the Help Center chat button list cell.
     func helpCenterChatButtonListCell(didTapButton button: HelpCenterContentButtonModel) {
         guard let stepId = button.action,
                 let bubbleMessage = button.label else { return }

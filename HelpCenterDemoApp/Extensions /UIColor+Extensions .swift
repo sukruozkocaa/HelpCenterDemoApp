@@ -11,9 +11,6 @@ import UIKit
 // MARK: - UIColor Extensions 
 extension UIColor {
     
-    // Convenience initializer for UIColor using a hexadecimal integer and optional alpha.
-    // 'hex': Hexadecimal color value (e.g., 0xFF5733 for a specific color).
-    // 'alpha': Optional alpha value (opacity), default is 1.0 (fully opaque).
     convenience init(_ hex: Int, alpha: Double = 1.0) {
         self.init(
             red: CGFloat((hex >> 16) & 0xFF) / 255.0,
@@ -23,9 +20,6 @@ extension UIColor {
         )
     }
 
-    // Convenience initializer for UIColor using a hex string and optional alpha.
-    // 'hexString': Hexadecimal color value in string format (e.g., "#FF5733").
-    // 'alpha': Optional alpha value, default is 1.0.
     convenience init(hexString: String, alpha: Double = 1.0) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()
@@ -49,11 +43,6 @@ extension UIColor {
         )
     }
     
-    // Convenience initializer for UIColor using RGB values and an optional alpha.
-    // 'r': Red value (0-255).
-    // 'g': Green value (0-255).
-    // 'b': Blue value (0-255).
-    // 'a': Alpha value (0-1), default is 1 (fully opaque).
     convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1) {
         self.init(
             red: (r / 255),

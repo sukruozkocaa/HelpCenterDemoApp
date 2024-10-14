@@ -52,7 +52,7 @@ enum ContentType: Codable {
             /// If successful, we assign the decoded value to the .text case.
             self = .text(textContent)
         } else if let buttonContent = try? container.decode(HelpCenterContentModel.self) {
-            /// // If successful, we assign the decoded value to the .buttons case.
+            /// If successful, we assign the decoded value to the .buttons case.
             self = .buttons(buttonContent)
         } else {
             /// If neither decoding succeeds, we throw an error indicating a type mismatch.

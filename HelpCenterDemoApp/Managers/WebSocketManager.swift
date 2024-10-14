@@ -15,26 +15,25 @@ protocol WebSocketInteractorDelegate: AnyObject {
 
 // MARK: - WebSocketManager (Singleton)
 final class WebSocketManager {
-    // Singleton Instance
+    // MARK: - Singleton Instance
     static let shared = WebSocketManager()
 
-    // Delegate
+    // MARK: - Delegate
     weak var delegate: WebSocketInteractorDelegate?
 
-    // WebSocket Task and URLSession
+    // MARK: - WebSocket Task and URLSession
     private var webSocketTask: URLSessionWebSocketTask?
-    private var urlSession: URLSession? // Keep session alive
+    private var urlSession: URLSession?
 
-    private init() {} // Prevent external initialization
+    private init() {}
 
     // MARK: - Connect WebSocket
     func connectWebSocket(socketURL: String) {
         guard let url = URL(string: socketURL) else { return }
-        urlSession = URLSession(configuration: .default) // Keep URLSession alive
+        urlSession = URLSession(configuration: .default)
         webSocketTask = urlSession?.webSocketTask(with: url)
         webSocketTask?.resume()
 
-        // Start listening for messages
         listenForMessages()
     }
 
@@ -83,7 +82,6 @@ private extension WebSocketManager {
                 self.delegate?.didFailWithError(error)
             }
 
-            // Listen for the next message
             self.listenForMessages()
         }
     }
